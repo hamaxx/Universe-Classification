@@ -72,7 +72,7 @@ public class ParseData {
 			}
 		}
 		avgCon /= (size * (size - 1)) / 2;
-		System.out.println("connections calculated " + (size * (size - 1)) / 2 + " " + avgCon);
+		System.out.println("connections calculated " + avgCon);
 	}
 	
 	public void parseCat() {
@@ -107,24 +107,25 @@ public class ParseData {
 	private double connStrength(int a1, int a2) {
 		ArrayList<Double> el1 = data.get(a1);
 		ArrayList<Double> el2 = data.get(a2);
+		
 		double strength = 0;
-		for (int i = 0; i < el1.size(); i++) {
-			if (i == clasIdx || i == nameIdx) continue;
-
+		for (int i = 1; i < el1.size(); i++) {
+			
 			double d = Math.abs(el1.get(i) - el2.get(i));
 			double s = 0;
 			if (d == 0) {
 				s = getDConStat(i, el1.get(i));
-			} else if (type[i].equals("c")) {
+			} else if (type[i - 1].equals("c")) {
 				double[] stat = getCConStat(i);
 				double n = (el1.get(i) + el2.get(i)) - 2 * stat[0];
 				s = Math.pow(1 - (d / n), 2);
 				s = Math.abs(s - stat[1]);
-				//System.out.println(stat[0]);
+				//System.out.println(s);
 			}
 			
 			strength += s;
 		}
+		
 		return strength;
 	}
 	

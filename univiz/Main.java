@@ -77,8 +77,10 @@ public class Main extends JPanel implements KeyListener {
 				if (d < 8 && d > 0) {
 					crash(i, j, x1, y1, x2, y2, d);
 				}
-				if (d > 20) {
+				if (data.stAtr != data.conn[i][j] || d > 20) {
 					gravity(i, j, x1, y1, x2, y2, d);
+				} else {
+					glue(i, j);
 				}
 				 
 			}
