@@ -27,19 +27,18 @@ public class Board extends JPanel {
 		data = new Data("datasets/" + Main.filename);
 		
 		border = Math.max(data.entity.length * 4, 500);
-		menu.mass = startSpeed() / 1000;
+		data.randomPosition(border);
+		menu.mass = startSpeed() / 10;
 		
 		menu.setMenu(data);
-		
-		data.randomPosition(border);
-				
+						
 		startTime = System.nanoTime() / (int)1E9;		
 	}
 	
 	private double startSpeed() {
 		double str = 0;
 		for (Conn con : data.conn) {
-			str += Math.pow(con.strength - data.avgConn, 5);
+			str += Math.pow(con.strength - data.avgConn, 3) / Math.sqrt(con.dist() / 2);
 		}
 		return str;
 	}
