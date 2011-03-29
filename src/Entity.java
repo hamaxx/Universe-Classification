@@ -9,12 +9,15 @@ public class Entity {
 	public double speedY;
 	
 	public double[] attr;
-
+	
+	public String name;
+	
 	public Clas clas;
 	public boolean clasHidden;
 	
-	public Entity(Clas cl, String[] at) {
+	public Entity(Clas cl, String[] at, String n) {
 		clas = cl;
+		name = n;
 		clasHidden = false;
 		attr = AttrMeta.translateArr(at);
 		

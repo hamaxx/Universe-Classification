@@ -8,6 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -23,6 +24,7 @@ public class Menu extends JPanel{
 	
 	JComboBox filename;
 	JSlider testSize;
+	JButton play;
 	
 	JLabel predLabel;
 	double avgConn;
@@ -46,33 +48,55 @@ public class Menu extends JPanel{
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
 		
-		addPane(reset(), 0, c);
+		addPane(play(), 0, c);
+		addPane(reset(), 1, c);
 		
-		addPane(new JPanel(), 1, c);
+		addPane(new JPanel(), 2, c);
 		
-		addPane(colorPanel(), 2, c);
+		addPane(colorPanel(), 3, c);
 		
-		addPane(new JPanel(), 3, c);
+		addPane(new JPanel(), 4, c);
 		
-		addPane(forcePredict(), 4, c);
-		addPane(distPredict(), 5, c);
+		addPane(forcePredict(), 5, c);
+		addPane(distPredict(), 6, c);
 		
-		addPane(new JPanel(), 6, c);
+		addPane(new JPanel(), 7, c);
 		
-		addPane(threshold(), 7, c);
-		addPane(shrink(), 8, c);
-		addPane(mass(), 9, c);
+		addPane(threshold(), 8, c);
+		addPane(shrink(), 9, c);
+		addPane(mass(), 10, c);
 	}
 	
-	private void addPane(JPanel p, int i, GridBagConstraints c) {
-		Border in = BorderFactory.createEmptyBorder(5, 0, 5, 0);
-		p.setBorder(in);
+	private void addPane(JComponent p, int i, GridBagConstraints c) {
+		Border in = BorderFactory.createLineBorder(this.getBackground(), 5);
+		p.setBorder(BorderFactory.createCompoundBorder(in, p.getBorder()));
 		c.gridy = i;
 		
-		if (i == 1 || i == 3 || i == 6) c.weighty = 1;
+		if (i == 2 || i == 4 || i == 7) c.weighty = 1;
 		else  c.weighty = 0;
 			
 		this.add(p, c);
+	}
+	
+	private JComponent play() {
+		play = new JButton();
+		if (Main.play) play.setText("Pause");
+		else play.setText("Play");
+		
+		play.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent arg0) {}
+			public void mouseEntered(MouseEvent arg0) {}
+			public void mouseExited(MouseEvent arg0) {}
+			public void mousePressed(MouseEvent arg0) {}
+			public void mouseReleased(MouseEvent arg0) {
+				Main.playPause();
+				if (Main.play) play.setText("Pause");
+				else play.setText("Play");
+			}
+
+		});
+		
+		return play;
 	}
 	
 	private JPanel reset() {

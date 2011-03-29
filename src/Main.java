@@ -8,6 +8,7 @@ public class Main extends JFrame {
 	
 	public static String filename = "dermatology.tab";
 	public static double testSize = 0.5;
+	public static boolean play = false;
 	
 	public static Menu menu;
 	public static Board board;
@@ -33,6 +34,13 @@ public class Main extends JFrame {
 		board.init();
 		
 		current.validate();
+		board.repaint();
+	}
+	
+	public static void playPause() {
+		play ^= true;
+		current.validate();
+		board.repaint();
 	}
 	
 	public void setGrid() {

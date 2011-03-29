@@ -139,6 +139,7 @@ public class Board extends JPanel {
 	}
 
 	private void reMove() {
+		if (!Main.play) return;
 		try {
 			Thread.sleep(10);
 			step();

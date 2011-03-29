@@ -114,14 +114,17 @@ public class Data {
 		ArrayList<Entity> ents = new ArrayList<Entity>();
 		for (String[] sents : file) {
 			ArrayList<String> ats = new ArrayList<String>();
+			String name = "";
 			for (int i = 0; i < sents.length; i++) {
 				if (i != AttrMeta.clasIdx && i != AttrMeta.nameIdx) {
 					ats.add(sents[i]);
+				} else if (i == AttrMeta.nameIdx) {
+					name = sents[i];
 				}
 			}
 			String[] atsa = new String[ats.size()];
 			ats.toArray(atsa);
-			ents.add(new Entity(cl.get(sents[AttrMeta.clasIdx]), atsa));
+			ents.add(new Entity(cl.get(sents[AttrMeta.clasIdx]), atsa, name));
 		}
 		
 		entity = new Entity[ents.size()];
