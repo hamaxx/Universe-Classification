@@ -168,7 +168,7 @@ public class Menu extends JPanel{
 
 		int avg = (int)Math.log(mass);
 		int min = (int)Math.log(mass / 1000);
-		int max = (int)Math.log(mass * 10);
+		int max = (int)Math.log(mass * 1000);
 				
 		JSlider slider = new JSlider(JSlider.HORIZONTAL, min, max, avg);
 		int space = (max - min) / 3;

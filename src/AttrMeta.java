@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.TreeMap;
 
 
@@ -8,6 +9,10 @@ public class AttrMeta {
 	private static double current[];
 	
 	public static String[] type;
+	public static String[] name;
+	
+	public static int nameIdx;
+	public static int clasIdx;
 	
 	public static double[] min;
 	public static double[] max;
@@ -19,28 +24,64 @@ public class AttrMeta {
 	public static int size;
 	
 	public static void reset() {
-		trans = null;
-		current = null;
-		type = null;
-		min = null;
-		max = null;
 		scores = null;
 		valueScore = null;
 		clas = null;
-		size = 0;
 	}
 	
-	public static void init(String[] t) {
-		type = t;
-		size = t.length;
-		current = new double[t.length];
+	public static void init(String na, String ty, String meta) {
+		nameIdx = -1;
+		clasIdx = -1;
+		
+		type = parseType(ty, meta);
+		size = type.length;
+		name = parseName(na);
+		
+		current = new double[size];
 		
 		min = new double[size];
 		max = new double[size];
 		
 		trans = new TreeMap<Integer, TreeMap<String, Double>>();
-		for (int i = 0; i < t.length; i++) {
+		for (int i = 0; i < size; i++) {
 			trans.put(i, new TreeMap<String, Double>());
+		}
+	}
+	
+	private static String[] parseType(String ty, String meta) {
+		String[] t = meta.split("\t");
+		for (int i = 0; i < t.length; i++) {
+			if (t[i].equals("meta")) {
+				nameIdx = i;
+			} else if (t[i].equals("class")) {
+				clasIdx = i;
+			}
+		}
+		
+		ArrayList<String> types = new ArrayList<String>();
+		t = ty.split("\t");
+		for (int i = 0; i < t.length; i++) {
+			if (i != nameIdx && i != clasIdx) {
+				String st = t[i];
+				if (st.equals("c")) st = "c";
+				else st = "d";
+				types.add(st);
+			}
+		}
+		
+		t = new String[types.size()];
+		types.toArray(t);
+
+		return t;
+	}
+	
+	private static String[] parseName(String na) {
+		if (na.length() > 0) {
+			return na.split("\t");
+		} else {
+			String[] n = new String[size];
+			for (int i = 0; i < size; i++) n[i] = "Attr " + (i + 1);
+			return n;
 		}
 	}
 	

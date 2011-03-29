@@ -64,19 +64,21 @@ public class Data {
 	private void parseFile(String filename) {
 		try {
 			BufferedReader read = new BufferedReader(new FileReader(filename));
-			
-			String[] cn = read.readLine().split(",");
-			int clasIdx = Integer.parseInt(cn[0]);
-			int nameIdx = Integer.parseInt(cn[1]);
-			
-			AttrMeta.init(read.readLine().split(","));
+
+			String name = read.readLine();
+			String type = read.readLine();
+			String meta = read.readLine();
+			AttrMeta.init(name, type, meta);
 			
 			ArrayList<String[]> file =  new ArrayList<String[]>();
 			while (read.ready()) {
-				file.add(read.readLine().split(","));
+				String line = read.readLine();
+				if (line.length() > 0) {
+					file.add(line.split("\t"));
+				}
 			}
 			
-			parseEntities(file, clasIdx, nameIdx);
+			parseEntities(file);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -89,11 +91,11 @@ public class Data {
 		System.out.println();
 	}
 	
-	private TreeMap<String, Clas> parseClas(ArrayList<String[]> file, int clasIdx) {
+	private TreeMap<String, Clas> parseClas(ArrayList<String[]> file) {
 		TreeMap<String, Clas> cl = new TreeMap<String, Clas>();
 		
 		for (String[] s : file) {
-			String name = s[clasIdx];
+			String name = s[AttrMeta.clasIdx];
 			if (!cl.containsKey(name)) {
 				cl.put(name, new Clas(name));
 			}
@@ -102,8 +104,8 @@ public class Data {
 		return cl;
 	}
 	
-	private void parseEntities(ArrayList<String[]> file, int clasIdx, int nameIdx) {
-		TreeMap<String, Clas> cl = parseClas(file, clasIdx);
+	private void parseEntities(ArrayList<String[]> file) {
+		TreeMap<String, Clas> cl = parseClas(file);
 		clas = new Clas[cl.size()];
 		cl.values().toArray(clas);
 		
@@ -113,13 +115,13 @@ public class Data {
 		for (String[] sents : file) {
 			ArrayList<String> ats = new ArrayList<String>();
 			for (int i = 0; i < sents.length; i++) {
-				if (i != clasIdx && i != nameIdx) {
+				if (i != AttrMeta.clasIdx && i != AttrMeta.nameIdx) {
 					ats.add(sents[i]);
 				}
 			}
 			String[] atsa = new String[ats.size()];
 			ats.toArray(atsa);
-			ents.add(new Entity(cl.get(sents[clasIdx]), atsa));
+			ents.add(new Entity(cl.get(sents[AttrMeta.clasIdx]), atsa));
 		}
 		
 		entity = new Entity[ents.size()];
