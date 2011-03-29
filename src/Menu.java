@@ -89,6 +89,7 @@ public class Menu extends JPanel{
 	    		filename.addItem(f.getName());
 	    	}
 	    }
+	    filename.setSelectedItem(Main.filename);
 	    
 		p.add(filename, c);
 		c.gridy = 1;
