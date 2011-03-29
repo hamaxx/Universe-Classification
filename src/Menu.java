@@ -51,14 +51,17 @@ public class Menu extends JPanel{
 		addPane(new JPanel(), 1, c);
 		
 		addPane(colorPanel(), 2, c);
-		addPane(forcePredict(), 3, c);
-		addPane(distPredict(), 4, c);
 		
-		addPane(new JPanel(), 5, c);
+		addPane(new JPanel(), 3, c);
 		
-		addPane(threshold(), 6, c);
-		addPane(shrink(), 7, c);
-		addPane(mass(), 8, c);
+		addPane(forcePredict(), 4, c);
+		addPane(distPredict(), 5, c);
+		
+		addPane(new JPanel(), 6, c);
+		
+		addPane(threshold(), 7, c);
+		addPane(shrink(), 8, c);
+		addPane(mass(), 9, c);
 	}
 	
 	private void addPane(JPanel p, int i, GridBagConstraints c) {
@@ -66,15 +69,16 @@ public class Menu extends JPanel{
 		p.setBorder(in);
 		c.gridy = i;
 		
-		if (i == 1 || i == 5) c.weighty = 1;
+		if (i == 1 || i == 3 || i == 6) c.weighty = 1;
 		else  c.weighty = 0;
 			
 		this.add(p, c);
 	}
 	
 	private JPanel reset() {
-		JPanel p = new JPanel();
-		p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
+		JPanel p = new JPanel(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
 		
 		filename = new JComboBox();
 		//filename.setMaximumSize(new Dimension(100, 30));
@@ -86,16 +90,17 @@ public class Menu extends JPanel{
 	    	}
 	    }
 	    
-		p.add(filename);
-		
-		p.add(new JLabel("Test size in %:"));
+		p.add(filename, c);
+		c.gridy = 1;
+		p.add(new JLabel("Test size in %:"), c);
 		
 		testSize = new JSlider(JSlider.HORIZONTAL, 10, 90, (int)(Main.testSize * 100));
 		testSize.setMajorTickSpacing(20);
 		testSize.setMinorTickSpacing(2);
 		testSize.setPaintTicks(true);
 		testSize.setPaintLabels(true);
-		p.add(testSize);
+		c.gridy = 2;
+		p.add(testSize, c);
 		
 		JButton reset = new JButton("Reset");
 		reset.addMouseListener(new MouseListener() {
@@ -108,16 +113,18 @@ public class Menu extends JPanel{
 			}
 
 		});
-		p.add(reset);
+		c.gridy = 3;
+		p.add(reset, c);
 		
 		return p;
 	}
 	
 	private JPanel threshold() {
-		JPanel p = new JPanel();
-		p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
+		JPanel p = new JPanel(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
 		
-		p.add(new JLabel("Set threshold:"));
+		p.add(new JLabel("Set threshold:"), c);
 		
 		avgConn = data.avgConn;
 		
@@ -140,16 +147,18 @@ public class Menu extends JPanel{
 			}
 		});
 		
-		p.add(slider);
+		c.gridy = 1;
+		p.add(slider, c);
 				
 		return p;
 	}
 	
 	private JPanel shrink() {
-		JPanel p = new JPanel();
-		p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
+		JPanel p = new JPanel(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
 		
-		p.add(new JLabel("Set shrink speed:"));
+		p.add(new JLabel("Set shrink speed:"), c);
 
 		int min = 10;
 		int avg = 30;
@@ -171,16 +180,18 @@ public class Menu extends JPanel{
 			}
 		});
 		
-		p.add(slider);
+		c.gridy = 1;
+		p.add(slider, c);
 				
 		return p;
 	}
 	
 	private JPanel mass() {
-		JPanel p = new JPanel();
-		p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
+		JPanel p = new JPanel(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
 		
-		p.add(new JLabel("Set inertia:"));
+		p.add(new JLabel("Set inertia:"), c);
 
 		int avg = (int)Math.log(mass);
 		int min = (int)Math.log(mass / 1000);
@@ -201,7 +212,8 @@ public class Menu extends JPanel{
 			}
 		});
 		
-		p.add(slider);
+		c.gridy = 1;
+		p.add(slider, c);
 				
 		return p;
 	}
