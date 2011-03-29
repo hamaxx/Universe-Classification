@@ -3,12 +3,40 @@ import java.util.TreeMap;
 public class AttrScore {
 	private Entity[] entity;
 	private Clas[] clas;
-	public TreeMap<Integer, TreeMap<Double, Double>> valueScore;
 	
 	public AttrScore(Entity[] en, Clas[] c) {
 		entity = en;
 		clas = c;
-		valueScore = new TreeMap<Integer, TreeMap<Double, Double>>();
+		
+	}
+	
+	public TreeMap<Integer, TreeMap<Double, Double>> valueScore() {
+		TreeMap<Integer, TreeMap<Double, Double>> vs = new TreeMap<Integer, TreeMap<Double, Double>>();
+		
+		for (int i = 0; i < AttrMeta.size; i++) {
+			vs.put(i, valueScoreForAttr(i));
+		}
+		
+		return vs;
+	}
+	
+	public TreeMap<Double, Double> valueScoreForAttr(int idx) {
+		TreeMap<Double, Double> score = new TreeMap<Double, Double>();
+		
+		for (Entity en : entity) {
+			double val = AttrMeta.discreteValue(idx, en.attr[idx]);
+			double n = 0;
+			if (score.containsKey(val)) n += score.get(val);
+			score.put(val, n + 1);
+		}
+		double avg = (double)entity.length / score.size();
+		for (double key : score.keySet()) {
+			double val = score.get(key);
+			val = avg / val;
+			score.put(key, Math.sqrt(val));
+		}
+		
+		return score;
 	}
 	
 	public double[] score() {
@@ -19,12 +47,11 @@ public class AttrScore {
 		
 		double clasEnt = entropyWithProp(Double.NaN, -1, entLength);
 		for (int i = 0; i < AttrMeta.size; i++) {
-			valueScore.put(i, new TreeMap<Double, Double>());
 			double entSum = 0;
 			for (double value : AttrMeta.getValuesFor(i).values()) {
 				entSum += entropyWithProp(value, i, entLength);
 			}
-			System.out.println("ent for " + i + ": " + (clasEnt - entSum));
+			//System.out.println("ent for " + i + ": " + (clasEnt - entSum));
 			scores[i] = clasEnt - entSum;
 		}
 		return scores;
@@ -51,9 +78,6 @@ public class AttrScore {
 		}
 		double prop = sizeAll / entLength;
 		
-		if (!Double.isNaN(value)) {
-			valueScore.get(attr).put(value, prop);
-		}
 		return ent * prop;
 	}
 	

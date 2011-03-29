@@ -54,7 +54,7 @@ public class Conn {
 				
 				s = 1 - (d / n);
 			}
-			double k1 = (1 - AttrMeta.valueScore(i, e1.attr[i]) * AttrMeta.valueScore(i, e2.attr[i]));
+			double k1 = AttrMeta.valueScore(i, e1.attr[i]) * AttrMeta.valueScore(i, e2.attr[i]);
 			//double k2 = !e1.clasHidden && !e2.clasHidden && e1.clas != e2.clas ? 0.5 : 1;
 			
 			strength += s * AttrMeta.scores[i] * k1;

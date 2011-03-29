@@ -6,8 +6,13 @@ import javax.swing.JFrame;
 public class Main extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
+	public static String filename = "dermatology";
+	public static double testSize = 0.5;
+	
 	public static Menu menu;
 	public static Board board;
+	
+	public static Main current;
 	
 	public Main() {
 		super("Uni Classification");
@@ -20,6 +25,14 @@ public class Main extends JFrame {
         setGrid();
         
         this.setVisible(true);
+	}
+	
+	public static void reset(String fn, double ts) {
+		filename = fn;
+		testSize = ts;
+		board.init();
+		
+		current.validate();
 	}
 	
 	public void setGrid() {
@@ -40,6 +53,6 @@ public class Main extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		new Main();
+		current = new Main();
 	}
 }

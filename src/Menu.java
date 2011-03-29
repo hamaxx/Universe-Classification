@@ -1,8 +1,13 @@
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.event.ChangeEvent;
@@ -12,6 +17,9 @@ public class Menu extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
 	Data data;
+	
+	JTextField filename;
+	JSlider testSize;
 	
 	JLabel predLabel;
 	double avgConn;
@@ -26,11 +34,17 @@ public class Menu extends JPanel{
 	
 	public void setMenu(Data d) {
 		data = d;
+		this.removeAll();
 		setPane();
 	}
 	
 	private void setPane() {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		
+		addPane(reset());
+		
+		addPane(new JPanel());
+		
 		addPane(colorPanel());
 		addPane(forcePredict());
 		addPane(distPredict());
@@ -47,6 +61,40 @@ public class Menu extends JPanel{
 		Border in = BorderFactory.createEmptyBorder(5, 0, 5, 0);
 		p.setBorder(in);
 		this.add(p);
+	}
+	
+	private JPanel reset() {
+		JPanel p = new JPanel();
+		p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
+		
+		filename = new JTextField(20);
+		filename.setMaximumSize(filename.getPreferredSize());
+		filename.setText(Main.filename);
+		p.add(filename);
+		
+		p.add(new JLabel("Test size in %:"));
+		
+		testSize = new JSlider(JSlider.HORIZONTAL, 10, 90, (int)(Main.testSize * 100));
+		testSize.setMajorTickSpacing(20);
+		testSize.setMinorTickSpacing(2);
+		testSize.setPaintTicks(true);
+		testSize.setPaintLabels(true);
+		p.add(testSize);
+		
+		JButton reset = new JButton("Reset");
+		reset.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent arg0) {}
+			public void mouseEntered(MouseEvent arg0) {}
+			public void mouseExited(MouseEvent arg0) {}
+			public void mousePressed(MouseEvent arg0) {}
+			public void mouseReleased(MouseEvent arg0) {
+				Main.reset(filename.getText(), (double)testSize.getValue() / 100);
+			}
+
+		});
+		p.add(reset);
+		
+		return p;
 	}
 	
 	private JPanel threshold() {
@@ -170,9 +218,10 @@ public class Menu extends JPanel{
 	private JPanel colorPanel() {		
 		JPanel p = new JPanel();
 		p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
+		p.add(new JLabel("Colors:"));
 		
 		for (Clas c : data.clas) {
-			JLabel label = new JLabel("Class: " + c.name);
+			JLabel label = new JLabel("  Class: " + c.name);
 			label.setForeground(c.color());
 			p.add(label);
 		}

@@ -17,17 +17,23 @@ public class Board extends JPanel {
 	public Board(Menu m) {
 		this.setBackground(Color.white);
 		menu = m;
-		
-		data = new Data("datasets/heart.data");
+		init();
+	}
+	
+	public void init() {
+        AttrMeta.reset();
+        Clas.num = 0;
+        
+		data = new Data("datasets/" + Main.filename + ".data");
 		
 		border = Math.max(data.entity.length * 4, 500);
-		menu.mass = startSpeed() / (border / 5);
+		menu.mass = startSpeed() / (border / 5) / 100;
 		
 		menu.setMenu(data);
 		
 		data.randomPosition(border);
 				
-		startTime = System.nanoTime() / (int)1E9;
+		startTime = System.nanoTime() / (int)1E9;		
 	}
 	
 	private double startSpeed() {
@@ -60,8 +66,8 @@ public class Board extends JPanel {
 				y += ent.speedY;
 				double d2 = Math.sqrt(Math.pow(x - border, 2) + Math.pow(y - border, 2));
 				if (d2 > d1) {
-					ent.speedX *= -0.1;
-					ent.speedY *= -0.1;	
+					ent.speedX *= -0.3;
+					ent.speedY *= -0.3;	
 				}
 			}
 			ent.move();
@@ -77,28 +83,33 @@ public class Board extends JPanel {
 	}
 	
 	private void crash(Conn con) {
-		double g;
-		if (con.strength > menu.avgConn) {
-			g = ((con.strength - menu.avgConn) / (con.strength + menu.avgConn) + 3) / 4;
-		} else {
-			g = ((menu.avgConn - con.strength) / (con.strength + menu.avgConn)) / 2 + 1;
-		}
-
-		double sx = con.e1.speedX * g;
-		double sy = con.e1.speedY * g;
-		con.e1.speedX = con.e2.speedX * g;
-		con.e1.speedY = con.e2.speedY * g;
-		con.e2.speedX = sx;
-		con.e2.speedY = sy;
-			
-		con.moveFor(-(10 - con.dist()));
+		//if (!con.e1.clasHidden && !con.e2.clasHidden && con.e1.clas == con.e2.clas) {
+		//	glue(con);
+		//} else {
+		
+			double g;
+			if (con.strength > menu.avgConn) {
+				g = ((con.strength - menu.avgConn) / (con.strength + menu.avgConn) + 3) / 4;
+			} else {
+				g = ((menu.avgConn - con.strength) / (con.strength + menu.avgConn)) / 2 + 1;
+			}
+	
+			double sx = con.e1.speedX * g;
+			double sy = con.e1.speedY * g;
+			con.e1.speedX = con.e2.speedX * g;
+			con.e1.speedY = con.e2.speedY * g;
+			con.e2.speedX = sx;
+			con.e2.speedY = sy;
+		
+			con.moveFor(-(10 - con.dist()));
+		//}
 	}
 	/*
 	private void glue(Conn con) {
 		double g = 0.5;
 		double g1 = 1 - g;
 		
-		double k = 0.999;
+		double k = 1;
 		
 		double sx = (con.e1.speedX * g + con.e2.speedX * g1) * k;
 		double sy = (con.e1.speedY * g + con.e2.speedY * g1) * k;

@@ -23,7 +23,7 @@ public class Data {
 	
 	public void randomTest() {
 		for (Entity en : entity) {
-			if (Math.random() < 0.2) {
+			if (Math.random() < Main.testSize) {
 				en.clasHidden = true;
 			}
 		}

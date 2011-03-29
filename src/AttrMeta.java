@@ -17,7 +17,19 @@ public class AttrMeta {
 	private static Clas[] clas;
 	
 	public static int size;
-
+	
+	public static void reset() {
+		trans = null;
+		current = null;
+		type = null;
+		min = null;
+		max = null;
+		scores = null;
+		valueScore = null;
+		clas = null;
+		size = 0;
+	}
+	
 	public static void init(String[] t) {
 		type = t;
 		size = t.length;
@@ -78,7 +90,7 @@ public class AttrMeta {
 		
 		AttrScore sc = new AttrScore(entity, clas);
 		scores = sc.score();
-		valueScore = sc.valueScore;
+		valueScore = sc.valueScore();
 	}
 	
 	public static double valueScore(int idx, double val) {
