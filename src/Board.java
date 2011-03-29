@@ -65,8 +65,15 @@ public class Board extends JPanel {
 				y += ent.speedY;
 				double d2 = Math.sqrt(Math.pow(x - border, 2) + Math.pow(y - border, 2));
 				if (d2 > d1) {
-					ent.speedX *= -0.3;
-					ent.speedY *= -0.3;	
+					double nx = border - x;
+					double ny = border - y;
+					double n = Math.sqrt(Math.pow(nx, 2) + Math.pow(ny, 2));
+					nx /= n; ny /= n;
+					
+					double dot = -ent.speedX * nx - ent.speedY * ny;
+
+					ent.speedX = 1.5 * dot * nx + ent.speedX;
+					ent.speedY = 1.5 * dot * ny + ent.speedY;
 				}
 			}
 			ent.move();
