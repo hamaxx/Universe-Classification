@@ -24,7 +24,7 @@ public class Board extends JPanel {
         AttrMeta.reset();
         Clas.num = 0;
         
-		data = new Data("datasets/" + Main.filename + ".tab");
+		data = new Data("datasets/" + Main.filename);
 		
 		border = Math.max(data.entity.length * 4, 500);
 		menu.mass = startSpeed() / 1000;

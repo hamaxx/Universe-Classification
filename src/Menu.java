@@ -1,13 +1,16 @@
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
-import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.event.ChangeEvent;
@@ -18,7 +21,7 @@ public class Menu extends JPanel{
 	
 	Data data;
 	
-	JTextField filename;
+	JComboBox filename;
 	JSlider testSize;
 	
 	JLabel predLabel;
@@ -39,37 +42,50 @@ public class Menu extends JPanel{
 	}
 	
 	private void setPane() {
-		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		this.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
 		
-		addPane(reset());
+		addPane(reset(), 0, c);
 		
-		addPane(new JPanel());
+		addPane(new JPanel(), 1, c);
 		
-		addPane(colorPanel());
-		addPane(forcePredict());
-		addPane(distPredict());
+		addPane(colorPanel(), 2, c);
+		addPane(forcePredict(), 3, c);
+		addPane(distPredict(), 4, c);
 		
-		addPane(new JPanel());
+		addPane(new JPanel(), 5, c);
 		
-		addPane(threshold());
-		addPane(shrink());
-		addPane(mass());
+		addPane(threshold(), 6, c);
+		addPane(shrink(), 7, c);
+		addPane(mass(), 8, c);
 	}
 	
-	private void addPane(JPanel p) {
-		//Border out = BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(0));
+	private void addPane(JPanel p, int i, GridBagConstraints c) {
 		Border in = BorderFactory.createEmptyBorder(5, 0, 5, 0);
 		p.setBorder(in);
-		this.add(p);
+		c.gridy = i;
+		
+		if (i == 1 || i == 5) c.weighty = 1;
+		else  c.weighty = 0;
+			
+		this.add(p, c);
 	}
 	
 	private JPanel reset() {
 		JPanel p = new JPanel();
 		p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
 		
-		filename = new JTextField(20);
-		filename.setMaximumSize(filename.getPreferredSize());
-		filename.setText(Main.filename);
+		filename = new JComboBox();
+		//filename.setMaximumSize(new Dimension(100, 30));
+	    File folder = new File("./datasets");
+	    File[] listOfFiles = folder.listFiles();
+	    for (File f : listOfFiles) {
+	    	if (f.isFile() && f.getName().matches(".*\\.tab$")) {
+	    		filename.addItem(f.getName());
+	    	}
+	    }
+	    
 		p.add(filename);
 		
 		p.add(new JLabel("Test size in %:"));
@@ -88,7 +104,7 @@ public class Menu extends JPanel{
 			public void mouseExited(MouseEvent arg0) {}
 			public void mousePressed(MouseEvent arg0) {}
 			public void mouseReleased(MouseEvent arg0) {
-				Main.reset(filename.getText(), (double)testSize.getValue() / 100);
+				Main.reset((String)filename.getSelectedItem(), (double)testSize.getValue() / 100);
 			}
 
 		});
