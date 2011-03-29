@@ -156,7 +156,7 @@ public class Board extends JPanel {
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 		
-		double zoom = ((double)getHeight() / 2) / border;		
+		double zoom = ((double)getHeight() / 2) / (border + 50);		
 		g.setColor(new Color(100, 100, 100));
 		double rc = border * zoom * 2;
 		int xc = (int)((double)getWidth() / 2 - rc / 2);
