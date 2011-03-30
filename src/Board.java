@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
@@ -16,6 +17,7 @@ public class Board extends JPanel {
 	
 	public Board(Menu m) {
 		this.setBackground(Color.white);
+		this.setPreferredSize(new Dimension(660, 660));
 		menu = m;
 		init();
 	}
@@ -26,7 +28,7 @@ public class Board extends JPanel {
         
 		data = new Data("datasets/" + Main.filename);
 		
-		border = Math.max(data.entity.length * 4, 500);
+		border = Math.sqrt(data.entity.length) * 60;
 		data.randomPosition(border);
 		menu.mass = startSpeed() / 10;
 		
@@ -72,8 +74,8 @@ public class Board extends JPanel {
 					
 					double dot = -ent.speedX * nx - ent.speedY * ny;
 
-					ent.speedX = 1.5 * dot * nx + ent.speedX;
-					ent.speedY = 1.5 * dot * ny + ent.speedY;
+					ent.speedX = (2 * dot * nx + ent.speedX) * 0.5;
+					ent.speedY = (2 * dot * ny + ent.speedY) * 0.5;
 				}
 			}
 			ent.move();

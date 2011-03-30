@@ -18,7 +18,7 @@ public class Main extends JFrame {
 	public Main() {
 		super("Uni Classification");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(1400, 1000);
+        //this.setSize(1400, 1000);
         
         menu = new Menu();	
         board = new Board(menu);
@@ -26,6 +26,8 @@ public class Main extends JFrame {
         setGrid();
         
         this.setVisible(true);
+        
+        this.pack();
 	}
 	
 	public static void reset(String fn, double ts) {
