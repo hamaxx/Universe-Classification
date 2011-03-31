@@ -49,10 +49,11 @@ public class Conn {
 			if (AttrMeta.type[i].equals("d") && d == 0) {
 				s = 1;
 			} else if (AttrMeta.type[i].equals("c")) {
-				double n = (e1.attr[i] + e2.attr[i]) - 2 * AttrMeta.getMin(i);
-				n = n == 0 ? 1 : n;
-				
-				s = 1 - (d / n);
+				double a1 = (e1.attr[i] - AttrMeta.getMin(i)) / (AttrMeta.getMax(i) - AttrMeta.getMin(i));
+				double a2 = (e2.attr[i] - AttrMeta.getMin(i)) / (AttrMeta.getMax(i) - AttrMeta.getMin(i));
+				s = 1 - Math.abs(a2 - a1);
+				if (s < 0)
+				System.out.println(a1 + " " + a2 + " " + s);
 			}
 			double k1 = AttrMeta.valueScore(i, e1.attr[i]) * AttrMeta.valueScore(i, e2.attr[i]);
 			//double k2 = !e1.clasHidden && !e2.clasHidden && e1.clas != e2.clas ? 0.5 : 1;

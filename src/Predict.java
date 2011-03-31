@@ -45,7 +45,7 @@ public class Predict {
 		
 		for (Entity en1 : data.entity) {
 			if (en != en1 && !en1.clasHidden) {
-				double d = Math.sqrt(Math.pow(en1.x - en.x, 2) + Math.pow(en1.y - en.y, 2));
+				double d = Math.pow(en1.x - en.x, 2) + Math.pow(en1.y - en.y, 2);
 				d = Math.max(d, 5);
 				na.add(new ClasDist(en1.clas, 1.0 / d));
 			}

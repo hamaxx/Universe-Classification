@@ -31,7 +31,7 @@ public class Board extends JPanel {
 		border = Math.sqrt(data.entity.length) * 60;
 		data.randomPosition(border);
 		menu.mass = startSpeed() / 10;
-		
+		System.out.println(menu.mass);
 		menu.setMenu(data);
 						
 		startTime = System.nanoTime() / (int)1E9;		
@@ -40,7 +40,7 @@ public class Board extends JPanel {
 	private double startSpeed() {
 		double str = 0;
 		for (Conn con : data.conn) {
-			str += Math.pow(con.strength - data.avgConn, 3) / Math.sqrt(con.dist() / 2);
+			str += Math.abs(Math.pow(con.strength - data.avgConn, 3) / Math.sqrt(con.dist() / 2));
 		}
 		return str;
 	}
