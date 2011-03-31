@@ -52,8 +52,6 @@ public class Conn {
 				double a1 = (e1.attr[i] - AttrMeta.getMin(i)) / (AttrMeta.getMax(i) - AttrMeta.getMin(i));
 				double a2 = (e2.attr[i] - AttrMeta.getMin(i)) / (AttrMeta.getMax(i) - AttrMeta.getMin(i));
 				s = 1 - Math.abs(a2 - a1);
-				if (s < 0)
-				System.out.println(a1 + " " + a2 + " " + s);
 			}
 			double k1 = AttrMeta.valueScore(i, e1.attr[i]) * AttrMeta.valueScore(i, e2.attr[i]);
 			//double k2 = !e1.clasHidden && !e2.clasHidden && e1.clas != e2.clas ? 0.5 : 1;

@@ -1,5 +1,7 @@
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -7,6 +9,7 @@ import java.io.File;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -30,6 +33,7 @@ public class Menu extends JPanel{
 	double avgConn;
 	double shrinkSpeed;
 	double mass;
+	boolean showPre = false;
 
 	public Menu() {
 		Border in = BorderFactory.createEmptyBorder(10, 10, 10, 10);
@@ -59,12 +63,13 @@ public class Menu extends JPanel{
 		
 		addPane(forcePredict(), 5, c);
 		addPane(distPredict(), 6, c);
+		addPane(showPredict(), 7, c);
 		
-		addPane(new JPanel(), 7, c);
+		addPane(new JPanel(), 8, c);
 		
-		addPane(threshold(), 8, c);
-		addPane(shrink(), 9, c);
-		addPane(mass(), 10, c);
+		addPane(threshold(), 9, c);
+		addPane(shrink(), 10, c);
+		addPane(mass(), 11, c);
 	}
 	
 	private void addPane(JComponent p, int i, GridBagConstraints c) {
@@ -72,7 +77,7 @@ public class Menu extends JPanel{
 		p.setBorder(BorderFactory.createCompoundBorder(in, p.getBorder()));
 		c.gridy = i;
 		
-		if (i == 2 || i == 4 || i == 7) c.weighty = 1;
+		if (i == 2 || i == 4 || i == 8) c.weighty = 1;
 		else  c.weighty = 0;
 			
 		this.add(p, c);
@@ -262,6 +267,22 @@ public class Menu extends JPanel{
 		p.add(predLabel);
 		
 		return p;
+	}
+	
+	private JCheckBox showPredict() {
+		JCheckBox spr = new JCheckBox("Show predicted color");
+		spr.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					showPre = true;
+				} else {
+					showPre = false;
+				}
+				System.out.println(showPre);
+			}
+		});
+		
+		return spr;
 	}
 	
 	public void newDistPredict() {

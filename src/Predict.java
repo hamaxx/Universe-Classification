@@ -90,6 +90,8 @@ public class Predict {
 		
 		//System.out.println();
 		
+		en.predClas = maxKey;
+		
 		return trueW.id == maxKey.id;
 	}
 	

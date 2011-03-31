@@ -13,6 +13,7 @@ public class Entity {
 	public String name;
 	
 	public Clas clas;
+	public Clas predClas;
 	public boolean clasHidden;
 	
 	public Entity(Clas cl, String[] at, String n) {
@@ -24,8 +25,8 @@ public class Entity {
 		clas.add(this);
 	}
 	
-	public Color color() {
-		if (clasHidden) {
+	public Color color(boolean pred) {
+		if (clasHidden && (!pred || predClas == null)) {
 			return Color.getHSBColor(0f, 0f, 0f);
 		} else {
 			return clas.color();

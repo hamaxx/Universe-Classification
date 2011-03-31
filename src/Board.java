@@ -31,7 +31,6 @@ public class Board extends JPanel {
 		border = Math.sqrt(data.entity.length) * 60;
 		data.randomPosition(border);
 		menu.mass = startSpeed() / 10;
-		System.out.println(menu.mass);
 		menu.setMenu(data);
 						
 		startTime = System.nanoTime() / (int)1E9;		
@@ -180,7 +179,7 @@ public class Board extends JPanel {
 			int y = (int)Math.round(ent.y * zoom + ((1 - zoom) * getHeight() / 2));
 							
 			int r = (int)Math.ceil(5 * zoom);
-			g.setColor(ent.color());
+			g.setColor(ent.color(menu.showPre));
 			g.fillOval(x - r - moveX, y - r - moveY, 2 * r, 2 * r);
 		}
 
