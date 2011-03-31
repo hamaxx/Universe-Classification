@@ -145,7 +145,68 @@ public class Menu extends JPanel{
 		c.weightx = 1;
 		c.weighty = 1;
 		c.fill = GridBagConstraints.BOTH;
+				
+		c.gridy = 0;
+		JButton reset = new JButton("Reset");
+		reset.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent arg0) {}
+			public void mouseEntered(MouseEvent arg0) {}
+			public void mouseExited(MouseEvent arg0) {}
+			public void mousePressed(MouseEvent arg0) {}
+			public void mouseReleased(MouseEvent e) {
+				Container cont = ((JButton)e.getSource()).getParent();
+				for (Component c : cont.getComponents()) {
+					if (c instanceof JSlider) { 
+						AttrMeta.scores[Integer.parseInt(c.getName())] = 1;
+						((JSlider)c).setValue(100);
+					}
+				}
+				data.calculateConnections();
+			}
+
+		});
+		pane.add(reset, c);
 		
+		c.gridy = 1;
+		JButton infg = new JButton("Inf gain");
+		infg.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent arg0) {}
+			public void mouseEntered(MouseEvent arg0) {}
+			public void mouseExited(MouseEvent arg0) {}
+			public void mousePressed(MouseEvent arg0) {}
+			public void mouseReleased(MouseEvent e) {
+				AttrMeta.parseStats(data.entity);
+				Container cont = ((JButton)e.getSource()).getParent();
+				for (Component c : cont.getComponents()) {
+					if (c instanceof JSlider) { 
+						((JSlider) c).setValue((int)(AttrMeta.scores[Integer.parseInt(c.getName())] * 100));
+					}
+				}
+				data.calculateConnections();
+			}
+
+		});
+		pane.add(infg, c);
+		
+		c.fill = GridBagConstraints.BOTH;
+		c.gridx = 0;
+		c.weightx = 1;
+		int i;
+		for (i = 0; i < AttrMeta.size; i++) {
+			c.gridy = i * 2 + 2;
+			pane.add(new JLabel(AttrMeta.name[i] + ":"), c);
+			
+			c.gridy = i * 2 + 3;
+			JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 200, (int)(AttrMeta.scores[i] * 100));
+			slider.setName(Integer.toString(i));
+			slider.setMajorTickSpacing(50);
+			slider.setMinorTickSpacing(10);
+			slider.setPaintTicks(true);
+			slider.setPaintLabels(true);
+			pane.add(slider, c);
+		}
+		
+		c.gridy = i * 2 + 2;
 		JButton submit = new JButton("Recalculate");
 		
 		submit.addMouseListener(new MouseListener() {
@@ -166,20 +227,6 @@ public class Menu extends JPanel{
 
 		});
 		pane.add(submit, c);
-		
-		for (int i = 0; i < AttrMeta.size; i++) {
-			c.gridy = i * 2 + 1;
-			pane.add(new JLabel(AttrMeta.name[i] + ":"), c);
-			
-			c.gridy = i * 2 + 2;
-			JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 200, (int)(AttrMeta.scores[i] * 100));
-			slider.setName(Integer.toString(i));
-			slider.setMajorTickSpacing(50);
-			slider.setMinorTickSpacing(10);
-			slider.setPaintTicks(true);
-			slider.setPaintLabels(true);
-			pane.add(slider, c);
-		}
 		
 		cont.add(scroll);
 		frame.setVisible(true);

@@ -30,7 +30,7 @@ public class Board extends JPanel {
 		
 		border = Math.sqrt(data.entity.length) * 60;
 		data.randomPosition(border);
-		menu.mass = startSpeed() / 10;
+		menu.mass = startSpeed();
 		menu.setMenu(data);
 						
 		startTime = System.nanoTime() / (int)1E9;		
@@ -39,7 +39,7 @@ public class Board extends JPanel {
 	private double startSpeed() {
 		double str = 0;
 		for (Conn con : data.conn) {
-			str += Math.abs(Math.pow(con.strength - data.avgConn, 3) / Math.sqrt(con.dist() / 2));
+			str += Math.abs(Math.pow(con.strength - data.avgConn, 3));
 		}
 		return str;
 	}
@@ -90,26 +90,22 @@ public class Board extends JPanel {
 	}
 	
 	private void crash(Conn con) {
-		//if (!con.e1.clasHidden && !con.e2.clasHidden && con.e1.clas == con.e2.clas) {
-		//	glue(con);
-		//} else {
-		
-			double g;
-			if (con.strength > menu.avgConn) {
-				g = ((con.strength - menu.avgConn) / (con.strength + menu.avgConn) + 3) / 4;
-			} else {
-				g = ((menu.avgConn - con.strength) / (con.strength + menu.avgConn)) / 2 + 1;
-			}
+		double g = 1;
+
+		if (con.strength > menu.avgConn) {
+			g *= ((con.strength - menu.avgConn) / (con.strength + menu.avgConn) + 3) / 4;
+		} else {
+			g *= ((menu.avgConn - con.strength) / (con.strength + menu.avgConn)) / 4 + 0.9;
+		}
+
+		double sx = con.e1.speedX * g;
+		double sy = con.e1.speedY * g;
+		con.e1.speedX = con.e2.speedX * g;
+		con.e1.speedY = con.e2.speedY * g;
+		con.e2.speedX = sx;
+		con.e2.speedY = sy;
 	
-			double sx = con.e1.speedX * g;
-			double sy = con.e1.speedY * g;
-			con.e1.speedX = con.e2.speedX * g;
-			con.e1.speedY = con.e2.speedY * g;
-			con.e2.speedX = sx;
-			con.e2.speedY = sy;
-		
-			con.moveFor(-(10 - con.dist()));
-		//}
+		con.moveFor(-(10 - con.dist()));	
 	}
 	/*
 	private void glue(Conn con) {
@@ -129,15 +125,20 @@ public class Board extends JPanel {
 	private void force(Conn con) {
 		double m = Math.pow(con.strength - menu.avgConn, 3);
 		double d = Math.max(con.dist(), 30);
-
-		if (m > 0) {
-		//	d = Math.min(d, 600);
+		
+		double force = 0;
+		d = Math.max(d, 50);
+		if (m < 0) {
+			if (d < border / 2) {
+				force = m * (1 + 1E5 / (d * d) * (border / 500));
+			}
 		} else {
-			m *= 1 + 1E5 / (d * d);
+			force = m * Math.sqrt(d);
 		}
 
-		double force = (m / Math.sqrt(d));
-
+		//double force = (m / Math.sqrt(d));
+		
+		
 		force /= menu.mass;
 
 		if (force > 20) force = 20;
