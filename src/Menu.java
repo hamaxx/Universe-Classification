@@ -1,3 +1,6 @@
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ItemEvent;
@@ -12,8 +15,10 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
@@ -70,6 +75,7 @@ public class Menu extends JPanel{
 		addPane(threshold(), 9, c);
 		addPane(shrink(), 10, c);
 		addPane(mass(), 11, c);
+		addPane(attrScore(), 12, c);
 	}
 	
 	private void addPane(JComponent p, int i, GridBagConstraints c) {
@@ -104,6 +110,82 @@ public class Menu extends JPanel{
 		return play;
 	}
 	
+	private JButton attrScore() {
+		JButton open = new JButton("Set attributes");
+		
+		open.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent arg0) {}
+			public void mouseEntered(MouseEvent arg0) {}
+			public void mouseExited(MouseEvent arg0) {}
+			public void mousePressed(MouseEvent arg0) {}
+			public void mouseReleased(MouseEvent arg0) {
+				openAttrScore();
+			}
+
+		});
+		
+		return open;
+	}
+
+	
+	private void openAttrScore() {
+		JFrame frame = new JFrame("Set attributes");
+		frame.setPreferredSize(new Dimension(300, 700));
+		
+		JPanel pane = new JPanel();
+		pane.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+		
+		Container cont = frame.getContentPane();
+		JScrollPane scroll = new JScrollPane(pane);
+		
+		GridBagLayout gridbag = new GridBagLayout();
+		GridBagConstraints c = new GridBagConstraints();
+		
+		pane.setLayout(gridbag);
+		c.weightx = 1;
+		c.weighty = 1;
+		c.fill = GridBagConstraints.BOTH;
+		
+		JButton submit = new JButton("Recalculate");
+		
+		submit.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent arg0) {}
+			public void mouseEntered(MouseEvent arg0) {}
+			public void mouseExited(MouseEvent arg0) {}
+			public void mousePressed(MouseEvent arg0) {}
+			public void mouseReleased(MouseEvent e) {
+				Container cont = ((JButton)e.getSource()).getParent();
+				for (Component c : cont.getComponents()) {
+					if (c instanceof JSlider) { 
+						double val = (double)((JSlider)c).getValue() / 100;
+						AttrMeta.scores[Integer.parseInt(c.getName())] = val;
+					}
+				}
+				data.calculateConnections();
+			}
+
+		});
+		pane.add(submit, c);
+		
+		for (int i = 0; i < AttrMeta.size; i++) {
+			c.gridy = i * 2 + 1;
+			pane.add(new JLabel(AttrMeta.name[i] + ":"), c);
+			
+			c.gridy = i * 2 + 2;
+			JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 200, (int)(AttrMeta.scores[i] * 100));
+			slider.setName(Integer.toString(i));
+			slider.setMajorTickSpacing(50);
+			slider.setMinorTickSpacing(10);
+			slider.setPaintTicks(true);
+			slider.setPaintLabels(true);
+			pane.add(slider, c);
+		}
+		
+		cont.add(scroll);
+		frame.setVisible(true);
+		frame.pack();
+	}
+	
 	private JPanel reset() {
 		JPanel p = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -132,7 +214,7 @@ public class Menu extends JPanel{
 		c.gridy = 2;
 		p.add(testSize, c);
 		
-		JButton reset = new JButton("Reset");
+		JButton reset = new JButton("Load");
 		reset.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent arg0) {}
 			public void mouseEntered(MouseEvent arg0) {}

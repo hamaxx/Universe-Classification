@@ -39,7 +39,7 @@ public class Data {
 		}
 	}
 	
-	private void calculateConnections() {
+	public void calculateConnections() {
 		ArrayList<Conn> cons = new ArrayList<Conn>(); 
 		avgConn = 0;
 		for (int i = 0; i < entity.length; i++) {

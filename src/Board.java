@@ -17,7 +17,7 @@ public class Board extends JPanel {
 	
 	public Board(Menu m) {
 		this.setBackground(Color.white);
-		this.setPreferredSize(new Dimension(660, 660));
+		this.setPreferredSize(new Dimension(800, 800));
 		menu = m;
 		init();
 	}

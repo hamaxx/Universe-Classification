@@ -26,8 +26,12 @@ public class Entity {
 	}
 	
 	public Color color(boolean pred) {
-		if (clasHidden && (!pred || predClas == null)) {
-			return Color.getHSBColor(0f, 0f, 0f);
+		if (clasHidden) {
+			if (pred && predClas != null) {
+				return clas.color().darker();
+			} else {
+				return Color.getHSBColor(0f, 0f, 0f);
+			}
 		} else {
 			return clas.color();
 		}
