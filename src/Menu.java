@@ -288,8 +288,8 @@ public class Menu extends JPanel{
 		avgConn = data.avgConn;
 		
 		int avg = (int)(avgConn * 10);
-		int min = (int)(avgConn / 2 * 10);
-		int max = (int)(avgConn * 2 * 10);
+		int min = (int)(avgConn / 4 * 10);
+		int max = (int)(avgConn * 4 * 10);
 		
 		JSlider slider = new JSlider(JSlider.HORIZONTAL, min, max, avg);
 		int space = (max - min) / 3;
@@ -353,13 +353,13 @@ public class Menu extends JPanel{
 		p.add(new JLabel("Set inertia:"), c);
 
 		int avg = (int)Math.log(mass);
-		int min = (int)Math.log(mass / 1000);
-		int max = (int)Math.log(mass * 1000);
+		int min = (int)Math.log(mass / 2000);
+		int max = (int)Math.log(mass * 2000);
 				
 		JSlider slider = new JSlider(JSlider.HORIZONTAL, min, max, avg);
 		int space = (max - min) / 3;
 		slider.setMajorTickSpacing(space);
-		slider.setMinorTickSpacing(space / 10);
+		slider.setMinorTickSpacing(space / 20);
 		slider.setPaintTicks(true);
 		slider.setPaintLabels(true);
 		slider.addChangeListener(new ChangeListener(){

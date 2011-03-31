@@ -14,6 +14,7 @@ public class Board extends JPanel {
 	double border;
 
 	long startTime;
+	long fpsTime;
 	
 	public Board(Menu m) {
 		this.setBackground(Color.white);
@@ -34,6 +35,7 @@ public class Board extends JPanel {
 		menu.setMenu(data);
 						
 		startTime = System.nanoTime() / (int)1E9;		
+		fpsTime = System.nanoTime();
 	}
 	
 	private double startSpeed() {
@@ -93,9 +95,9 @@ public class Board extends JPanel {
 		double g = 1;
 
 		if (con.strength > menu.avgConn) {
-			g *= ((con.strength - menu.avgConn) / (con.strength + menu.avgConn) + 3) / 4;
+			g *= 1 - ((con.strength - menu.avgConn) / (con.strength + menu.avgConn) + 1) / 2;
 		} else {
-			g *= ((menu.avgConn - con.strength) / (con.strength + menu.avgConn)) / 4 + 0.9;
+			g *= 1;//((menu.avgConn - con.strength) / (con.strength + menu.avgConn)) / 4 + 0.8;
 		}
 
 		double sx = con.e1.speedX * g;
@@ -107,38 +109,19 @@ public class Board extends JPanel {
 	
 		con.moveFor(-(10 - con.dist()));	
 	}
-	/*
-	private void glue(Conn con) {
-		double g = 0.5;
-		double g1 = 1 - g;
-		
-		double k = 1;
-		
-		double sx = (con.e1.speedX * g + con.e2.speedX * g1) * k;
-		double sy = (con.e1.speedY * g + con.e2.speedY * g1) * k;
-		con.e1.speedX = (con.e2.speedX * g + con.e1.speedX * g1) * k;
-		con.e1.speedY = (con.e2.speedY * g + con.e1.speedY * g1) * k;
-		con.e2.speedX = sx;
-		con.e2.speedY = sy;
-	}
-	*/
+
 	private void force(Conn con) {
 		double m = Math.pow(con.strength - menu.avgConn, 3);
-		double d = Math.max(con.dist(), 30);
+		double d = Math.max(con.dist(), 100);
 		
-		double force = 0;
-		d = Math.max(d, 50);
+		double force = m;
+
 		if (m < 0) {
-			if (d < border / 2) {
-				force = m * (1 + 1E5 / (d * d) * (border / 500));
-			}
+			force = m * 1E5 / (d * d);
 		} else {
 			force = m * Math.sqrt(d);
 		}
 
-		//double force = (m / Math.sqrt(d));
-		
-		
 		force /= menu.mass;
 
 		if (force > 20) force = 20;
@@ -149,13 +132,15 @@ public class Board extends JPanel {
 
 	private void reMove() {
 		if (!Main.play) return;
+		
 		try {
-			Thread.sleep(10);
+			Thread.sleep(1);
 			step();
 			repaint();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+
 		if (System.nanoTime() / (int)1E9 - startTime > 5) {
 			menu.newDistPredict();
 			startTime = System.nanoTime() / (int)1E9;
@@ -164,6 +149,7 @@ public class Board extends JPanel {
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
+		paintFps(g);
 		
 		double zoom = ((double)getHeight() / 2) / (border + 50);		
 		g.setColor(new Color(100, 100, 100));
@@ -186,6 +172,15 @@ public class Board extends JPanel {
 
 		//printColors(g);
 		reMove();
+	}
+	
+	private void paintFps(Graphics g) {
+		long t = (long)((System.nanoTime() - fpsTime) / 1E3);
+		long fps = Math.round(1E6 / t);
+		
+		g.drawString("fps: " + fps, 10, 20);
+		
+		fpsTime = System.nanoTime();
 	}
 	
 }
