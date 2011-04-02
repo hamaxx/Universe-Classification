@@ -88,6 +88,9 @@ public class Board extends JPanel {
 			double k = menu.shrinkSpeed;
 			en.x = (en.x - border) * k + border;
 			en.y = (en.y - border) * k + border;
+			
+			en.speedX *= 0.99;
+			en.speedY *= 0.99;
 		}
 	}
 	
@@ -112,14 +115,16 @@ public class Board extends JPanel {
 
 	private void force(Conn con) {
 		double m = Math.pow(con.strength - menu.avgConn, 3);
-		double d = Math.max(con.dist(), 100);
+		double d = con.dist();
 		
-		double force = m;
+		double force = 0;
 
 		if (m < 0) {
-			force = m * 1E5 / (d * d);
+			if (d < border / 3) {
+				force = m / (d * d) * 1E5;
+			}
 		} else {
-			force = m * Math.sqrt(d);
+			force = m * d * d / 1E4;
 		}
 
 		force /= menu.mass;
