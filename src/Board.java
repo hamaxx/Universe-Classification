@@ -31,7 +31,7 @@ public class Board extends JPanel {
 		
 		border = Math.sqrt(data.entity.length) * 60;
 		data.randomPosition(border);
-		menu.mass = startSpeed() / 10;
+		menu.mass = startSpeed() / 15;
 		menu.setMenu(data);
 						
 		startTime = System.nanoTime() / (int)1E9;		
@@ -121,7 +121,7 @@ public class Board extends JPanel {
 
 		if (m < 0) {
 			if (d < border / 3) {
-				force = m / (d * d) * 2E5;
+				force = m / (d * d) * 1E5;
 			}
 		} else {
 			force = m * d * d / 1E3;
