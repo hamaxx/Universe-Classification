@@ -88,7 +88,7 @@ public class Data {
 		System.out.println("  " + entity.length + " entries");
 		System.out.println("  " + AttrMeta.size + " attributes");
 		System.out.println("  " + clas.length + " classes");
-		System.out.println();
+		//System.out.println();
 	}
 	
 	private TreeMap<String, Clas> parseClas(ArrayList<String[]> file) {

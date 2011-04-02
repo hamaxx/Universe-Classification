@@ -31,7 +31,7 @@ public class Board extends JPanel {
 		
 		border = Math.sqrt(data.entity.length) * 60;
 		data.randomPosition(border);
-		menu.mass = startSpeed();
+		menu.mass = startSpeed() / 10;
 		menu.setMenu(data);
 						
 		startTime = System.nanoTime() / (int)1E9;		
@@ -41,7 +41,7 @@ public class Board extends JPanel {
 	private double startSpeed() {
 		double str = 0;
 		for (Conn con : data.conn) {
-			str += Math.abs(Math.pow(con.strength - data.avgConn, 3));
+			str += Math.abs(con.strength - data.avgConn);
 		}
 		return str;
 	}
@@ -114,17 +114,17 @@ public class Board extends JPanel {
 	}
 
 	private void force(Conn con) {
-		double m = Math.pow(con.strength - menu.avgConn, 3);
+		double m = con.strength - menu.avgConn;
 		double d = con.dist();
 		
 		double force = 0;
 
 		if (m < 0) {
 			if (d < border / 3) {
-				force = m / (d * d) * 1E5;
+				force = m / (d * d) * 2E5;
 			}
 		} else {
-			force = m * d * d / 1E4;
+			force = m * d * d / 1E3;
 		}
 
 		force /= menu.mass;
@@ -139,7 +139,7 @@ public class Board extends JPanel {
 		if (!Main.play) return;
 		
 		try {
-			Thread.sleep(1);
+			Thread.sleep(5);
 			step();
 			repaint();
 		} catch (InterruptedException e) {

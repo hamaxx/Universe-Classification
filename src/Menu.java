@@ -32,6 +32,7 @@ public class Menu extends JPanel{
 	
 	JComboBox filename;
 	JSlider testSize;
+	JSlider tresh;
 	JButton play;
 	
 	JLabel predLabel;
@@ -161,7 +162,7 @@ public class Menu extends JPanel{
 						((JSlider)c).setValue(100);
 					}
 				}
-				data.calculateConnections();
+				resetCon();
 			}
 
 		});
@@ -182,7 +183,7 @@ public class Menu extends JPanel{
 						((JSlider) c).setValue((int)(AttrMeta.scores[Integer.parseInt(c.getName())] * 100));
 					}
 				}
-				data.calculateConnections();
+				resetCon();
 			}
 
 		});
@@ -222,7 +223,7 @@ public class Menu extends JPanel{
 						AttrMeta.scores[Integer.parseInt(c.getName())] = val;
 					}
 				}
-				data.calculateConnections();
+				resetCon();
 			}
 
 		});
@@ -231,6 +232,20 @@ public class Menu extends JPanel{
 		cont.add(scroll);
 		frame.setVisible(true);
 		frame.pack();
+	}
+	
+	private void resetCon() {
+		data.calculateConnections();
+		avgConn = data.avgConn;
+		int avg = (int)(avgConn * 10);
+		int min = (int)(avgConn / 4 * 10);
+		int max = (int)(avgConn * 4 * 10);
+		int space = (max - min) / 3;
+		tresh.setMajorTickSpacing(space);
+		tresh.setMinorTickSpacing(space / 10);
+		tresh.setMinimum(min);
+		tresh.setMaximum(max);
+		tresh.setValue(avg);
 	}
 	
 	private JPanel reset() {
@@ -291,13 +306,13 @@ public class Menu extends JPanel{
 		int min = (int)(avgConn / 4 * 10);
 		int max = (int)(avgConn * 4 * 10);
 		
-		JSlider slider = new JSlider(JSlider.HORIZONTAL, min, max, avg);
+		tresh = new JSlider(JSlider.HORIZONTAL, min, max, avg);
 		int space = (max - min) / 3;
-		slider.setMajorTickSpacing(space);
-		slider.setMinorTickSpacing(space / 10);
-		slider.setPaintTicks(true);
-		slider.setPaintLabels(true);
-		slider.addChangeListener(new ChangeListener(){
+		tresh.setMajorTickSpacing(space);
+		tresh.setMinorTickSpacing(space / 10);
+		tresh.setPaintTicks(true);
+		tresh.setPaintLabels(true);
+		tresh.addChangeListener(new ChangeListener(){
 			public void stateChanged(ChangeEvent e) {
 				JSlider source = (JSlider)e.getSource();
 				if (!source.getValueIsAdjusting()) {
@@ -307,7 +322,7 @@ public class Menu extends JPanel{
 		});
 		
 		c.gridy = 1;
-		p.add(slider, c);
+		p.add(tresh, c);
 				
 		return p;
 	}
@@ -407,7 +422,7 @@ public class Menu extends JPanel{
 				} else {
 					showPre = false;
 				}
-				System.out.println(showPre);
+				//System.out.println(showPre);
 			}
 		});
 		
