@@ -54,6 +54,7 @@ public class Main extends JFrame {
 		
 		c.gridx = 0;
 		c.weighty = 1;
+		c.weightx = 0;
 		pane.add(menu, c);
 			
 		c.gridx = 1;

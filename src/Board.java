@@ -11,8 +11,6 @@ public class Board extends JPanel {
 	Data data;
 	Menu menu;
 	
-	double border;
-
 	long startTime;
 	long fpsTime;
 	
@@ -29,8 +27,8 @@ public class Board extends JPanel {
         
 		data = new Data("datasets/" + Main.filename);
 		
-		border = Math.sqrt(data.entity.length) * 60;
-		data.randomPosition(border);
+		menu.border = Math.sqrt(data.entity.length) * 60;
+		data.randomPosition(menu.border);
 		menu.mass = startSpeed() / 15;
 		menu.setMenu(data);
 						
@@ -62,14 +60,14 @@ public class Board extends JPanel {
 	private void move() {
 		for (Entity ent : data.entity) {
 			double x = ent.x, y = ent.y;
-			double d1 = Math.sqrt(Math.pow(x - border, 2) + Math.pow(y - border, 2));
-			if (d1 > border) {
+			double d1 = Math.sqrt(Math.pow(x - menu.border, 2) + Math.pow(y - menu.border, 2));
+			if (d1 > menu.border) {
 				x += ent.speedX;
 				y += ent.speedY;
-				double d2 = Math.sqrt(Math.pow(x - border, 2) + Math.pow(y - border, 2));
+				double d2 = Math.sqrt(Math.pow(x - menu.border, 2) + Math.pow(y - menu.border, 2));
 				if (d2 > d1) {
-					double nx = border - x;
-					double ny = border - y;
+					double nx = menu.border - x;
+					double ny = menu.border - y;
 					double n = Math.sqrt(Math.pow(nx, 2) + Math.pow(ny, 2));
 					nx /= n; ny /= n;
 					
@@ -86,15 +84,15 @@ public class Board extends JPanel {
 	private void shrinkUniverse() {
 		for (Entity en : data.entity) {
 			double k = menu.shrinkSpeed;
-			en.x = (en.x - border) * k + border;
-			en.y = (en.y - border) * k + border;
+			en.x = (en.x - menu.border) * k + menu.border;
+			en.y = (en.y - menu.border) * k + menu.border;
 			
 			en.speedX *= 0.99;
 			en.speedY *= 0.99;
 		}
 	}
-	
-	private void crash(Conn con) {
+	/*
+	private void crash1(Conn con) {
 		double g = 1;
 
 		if (con.strength > menu.avgConn) {
@@ -112,6 +110,22 @@ public class Board extends JPanel {
 	
 		con.moveFor(-(10 - con.dist()));	
 	}
+	*/
+	private void crash(Conn con) {
+		double g = 1 - Math.abs(con.strength - menu.avgConn) / (con.strength + menu.avgConn);
+		double g1 = 1 - g;
+		
+		double k = 1;
+		
+		double sx = (con.e1.speedX * g + con.e2.speedX * g1) * k;
+		double sy = (con.e1.speedY * g + con.e2.speedY * g1) * k;
+		con.e1.speedX = (con.e2.speedX * g + con.e1.speedX * g1) * k;
+		con.e1.speedY = (con.e2.speedY * g + con.e1.speedY * g1) * k;
+		con.e2.speedX = sx;
+		con.e2.speedY = sy;
+		
+		con.moveFor(-(10 - con.dist()));	
+	}
 
 	private void force(Conn con) {
 		double m = con.strength - menu.avgConn;
@@ -120,7 +134,7 @@ public class Board extends JPanel {
 		double force = 0;
 
 		if (m < 0) {
-			if (d < border / 3) {
+			if (d < menu.border / 3) {
 				force = m / (d * d) * 1E5;
 			}
 		} else {
@@ -156,15 +170,15 @@ public class Board extends JPanel {
 		super.paintComponent(g);
 		paintFps(g);
 		
-		double zoom = ((double)getHeight() / 2) / (border + 50);		
+		double zoom = ((double)Math.min(getHeight(), getWidth()) / 2) / (menu.border + 50);		
 		g.setColor(new Color(100, 100, 100));
-		double rc = border * zoom * 2;
+		double rc = menu.border * zoom * 2;
 		int xc = (int)((double)getWidth() / 2 - rc / 2);
 		int yc = (int)((double)getHeight() / 2 - rc / 2);
 		g.drawOval(xc, yc, (int)rc, (int)rc);
 		
-		int moveX = (int)((border - getWidth() / 2) * zoom);
-		int moveY = (int)((border - getHeight() / 2) * zoom);
+		int moveX = (int)((menu.border - getWidth() / 2) * zoom);
+		int moveY = (int)((menu.border - getHeight() / 2) * zoom);
 		
 		for (Entity ent : data.entity) {
 			int x = (int)Math.round(ent.x * zoom + ((1 - zoom) * getWidth() / 2));

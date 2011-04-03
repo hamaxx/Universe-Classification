@@ -25,7 +25,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public class Menu extends JPanel{
+public class Menu extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	Data data;
@@ -40,6 +40,7 @@ public class Menu extends JPanel{
 	double shrinkSpeed;
 	double mass;
 	boolean showPre = false;
+	double border;
 
 	public Menu() {
 		Border in = BorderFactory.createEmptyBorder(10, 10, 10, 10);
@@ -73,10 +74,11 @@ public class Menu extends JPanel{
 		
 		addPane(new JPanel(), 8, c);
 		
-		addPane(threshold(), 9, c);
-		addPane(shrink(), 10, c);
-		addPane(mass(), 11, c);
-		addPane(attrScore(), 12, c);
+		addPane(border(), 9, c);
+		addPane(threshold(), 10, c);
+		addPane(shrink(), 11, c);
+		addPane(mass(), 12, c);
+		addPane(attrScore(), 13, c);
 	}
 	
 	private void addPane(JComponent p, int i, GridBagConstraints c) {
@@ -290,6 +292,46 @@ public class Menu extends JPanel{
 		c.gridy = 3;
 		p.add(reset, c);
 		
+		return p;
+	}
+	
+	private JPanel border() {
+		JPanel p = new JPanel(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
+		
+		p.add(new JLabel("Set border:"), c);
+		
+		avgConn = data.avgConn;
+		
+		int avg = (int)(border);
+		int min = (int)(border / 10);
+		int max = (int)(border * 2);
+		
+		JSlider slider = new JSlider(JSlider.HORIZONTAL, min, max, avg);
+		int space = (max - min) / 3;
+		slider.setMajorTickSpacing(space);
+		slider.setMinorTickSpacing(space / 10);
+		slider.setPaintTicks(true);
+		slider.setPaintLabels(true);
+		slider.addChangeListener(new ChangeListener(){
+			public void stateChanged(ChangeEvent e) {
+				JSlider source = (JSlider)e.getSource();
+				if (!source.getValueIsAdjusting()) {
+					double d = border;
+					border = (double)source.getValue();
+					d = d - border;
+					for (Entity en : data.entity) {
+						en.x -= d;
+						en.y -= d;
+					}
+				}
+			}
+		});
+		
+		c.gridy = 1;
+		p.add(slider, c);
+				
 		return p;
 	}
 	
