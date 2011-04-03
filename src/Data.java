@@ -16,7 +16,7 @@ public class Data {
 		
 		randomTest();
 		
-		AttrMeta.parseStats(entity);
+		AttrMeta.parseStats(entity, clas.length > 1);
 		calculateConnections();
 
 	}
@@ -94,6 +94,11 @@ public class Data {
 	private TreeMap<String, Clas> parseClas(ArrayList<String[]> file) {
 		TreeMap<String, Clas> cl = new TreeMap<String, Clas>();
 		
+		if (AttrMeta.clasIdx < 0) {
+			cl.put("none", new Clas("none"));
+			return cl;
+		}
+		
 		for (String[] s : file) {
 			String name = s[AttrMeta.clasIdx];
 			if (!cl.containsKey(name)) {
@@ -124,7 +129,8 @@ public class Data {
 			}
 			String[] atsa = new String[ats.size()];
 			ats.toArray(atsa);
-			ents.add(new Entity(cl.get(sents[AttrMeta.clasIdx]), atsa, name));
+			Clas c = AttrMeta.clasIdx < 0 ? cl.firstEntry().getValue() : cl.get(sents[AttrMeta.clasIdx]);
+			ents.add(new Entity(c, atsa, name));
 		}
 		
 		entity = new Entity[ents.size()];

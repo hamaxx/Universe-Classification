@@ -178,7 +178,7 @@ public class Menu extends JPanel {
 			public void mouseExited(MouseEvent arg0) {}
 			public void mousePressed(MouseEvent arg0) {}
 			public void mouseReleased(MouseEvent e) {
-				AttrMeta.parseStats(data.entity);
+				AttrMeta.parseStats(data.entity, data.clas.length > 1);
 				Container cont = ((JButton)e.getSource()).getParent();
 				for (Component c : cont.getComponents()) {
 					if (c instanceof JSlider) { 

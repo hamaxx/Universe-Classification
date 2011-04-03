@@ -126,11 +126,16 @@ public class AttrMeta {
 		return max[idx];
 	}
 	
-	public static void parseStats(Entity[] entity) {
+	public static void parseStats(Entity[] entity, boolean inf) {
 		minamx(entity);
 		
 		AttrScore sc = new AttrScore(entity, clas);
-		scores = sc.score();
+		if (inf) {
+			scores = sc.score();
+		} else {
+			scores = new double[size];
+			for (int i = 0; i < size; i++) scores[i] = 1;
+		}
 		valueScore = sc.valueScore();
 	}
 	
@@ -168,7 +173,7 @@ public class AttrMeta {
 	}
 	
 	public static double translate(String satr, int idx) {
-		if (type[idx].equals("c")) {
+		if (type[idx].equals("c") || type[idx].equals("continuous")) {
 			if (satr.equals("?")) return -1;
 			return Double.parseDouble(satr);
 		}
