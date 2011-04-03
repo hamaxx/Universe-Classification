@@ -7,7 +7,7 @@ public class Main extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	public static String filename = "dermatology.tab";
-	public static double testSize = 0.5;
+	public static double testSize = 0;
 	public static boolean play = false;
 	
 	public static Menu menu;

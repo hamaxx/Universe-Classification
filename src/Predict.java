@@ -20,11 +20,15 @@ public class Predict {
 			}
 		}
 		CA = (double)(hit * 1000 / all) / 10;
-		System.out.println("Known " + hit + " / " + all + " = " + CA + "%");
-		return (double)hit / all;
+		//System.out.println("Known " + hit + " / " + all + " = " + CA + "%");
+		return CA;
 	}
 	
 	public double predict() {
+		if (Main.testSize <= 0) {
+			return predictKnown();
+		}
+		
 		int hit = 0, all = 0;
 		for (Entity en : data.entity) {
 			if (en.clasHidden) {
@@ -99,11 +103,20 @@ public class Predict {
 public double predictTest() {
 	int hit = 0, all = 0;
 	for (Entity en : data.entity) {
-		if (en.clasHidden) {
-			if (predictTestFor(en)) {
-				hit++;
-			} 
-			all++;;
+		if (Main.testSize > 0) {
+			if (en.clasHidden) {
+				if (predictTestFor(en)) {
+					hit++;
+				} 
+				all++;;
+			}
+		} else {
+			if (!en.clasHidden) {
+				if (predictTestFor(en)) {
+					hit++;
+				} 
+				all++;;
+			}
 		}
 	}
 	CA = (double)(hit * 1000 / all) / 10;

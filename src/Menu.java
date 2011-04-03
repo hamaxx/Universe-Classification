@@ -270,7 +270,7 @@ public class Menu extends JPanel {
 		c.gridy = 1;
 		p.add(new JLabel("Test size in %:"), c);
 		
-		testSize = new JSlider(JSlider.HORIZONTAL, 10, 90, (int)(Main.testSize * 100));
+		testSize = new JSlider(JSlider.HORIZONTAL, 0, 90, (int)(Main.testSize * 100));
 		testSize.setMajorTickSpacing(20);
 		testSize.setMinorTickSpacing(2);
 		testSize.setPaintTicks(true);
