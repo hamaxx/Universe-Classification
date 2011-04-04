@@ -268,9 +268,9 @@ public class Menu extends JPanel {
 	    
 		p.add(filename, c);
 		c.gridy = 1;
-		p.add(new JLabel("Test size in %:"), c);
+		p.add(new JLabel("Sample size in %:"), c);
 		
-		testSize = new JSlider(JSlider.HORIZONTAL, 0, 90, (int)(Main.testSize * 100));
+		testSize = new JSlider(JSlider.HORIZONTAL, 0, 100, (int)(Main.testSize * 100));
 		testSize.setMajorTickSpacing(20);
 		testSize.setMinorTickSpacing(2);
 		testSize.setPaintTicks(true);

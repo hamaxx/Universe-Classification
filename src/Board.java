@@ -87,8 +87,8 @@ public class Board extends JPanel {
 			en.x = (en.x - menu.border) * k + menu.border;
 			en.y = (en.y - menu.border) * k + menu.border;
 			
-			en.speedX *= 0.99;
-			en.speedY *= 0.99;
+			en.speedX *= 0.995;
+			en.speedY *= 0.995;
 		}
 	}
 	/*

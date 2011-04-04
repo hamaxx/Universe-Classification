@@ -14,7 +14,7 @@ public class Data {
 	public Data(String filename) {
 		parseFile(filename);
 		
-		randomTest();
+		//randomTest();
 		
 		AttrMeta.parseStats(entity, clas.length > 1);
 		calculateConnections();
@@ -73,8 +73,10 @@ public class Data {
 			ArrayList<String[]> file =  new ArrayList<String[]>();
 			while (read.ready()) {
 				String line = read.readLine();
-				if (line.length() > 0) {
-					file.add(line.split("\t"));
+				if (Math.random() < Main.testSize) {
+					if (line.length() > 0) {
+						file.add(line.split("\t"));
+					}
 				}
 			}
 			
