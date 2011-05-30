@@ -4,6 +4,7 @@
 \usepackage{subfigure}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{hyperref}
 
 \hyphenpenalty=5000
 \tolerance=1000
@@ -13,7 +14,7 @@
 \maketitle
 
 \begin{document}
-\tableofcontents
+
 \pagebreak
 
 \section{Opis programa}
@@ -121,6 +122,18 @@
 		\#zaradi te"zav z izvozom podatkov iz programa uniclass bo to poglavje dodano v rev 1.1
 
 \section{Zaklju"cek}
-	Skozi seminarsko nalogo smo se dotaknili treh potencialnih aplikacij algoritma uniclass. Ugotovili smo, da je najve"cja mo"c algoritma v vizualizaciji podatkov, saj omogo"ca dodatno perspiktivo pri opazovanju podatkov. 
-	
+	Skozi seminarsko nalogo smo se dotaknili treh potencialnih aplikacij algoritma uniclass. Ugotovili smo, da je najve"cja mo"c algoritma v vizualizaciji podatkov, saj omogo"ca dodatno perspiktivo pri opazovanju podatkov. Poleg opazovanja razpr"senosti podatkov lahko s pomo"cjo opazovanja premikanja lo"cimo mo"cno in "sibko povezane primere. S spreminjanjem nastavitev v grafi"cnem umesniku pa lahko v "zivo opazujemo spremembe, kar nam omogo"ca odkrivanje bolj skritih zakonitosti in vzorcev(slika \ref{f-votes}). 
+
+	\begin{figure}[H]
+	\begin{center}
+	\subfigure[Meja postavljena nizko]{\includegraphics[width=0.6\textwidth]{img/vote_1.png}\label{f-clas-der}}
+	\subfigure[Meja postavljena visoko]{\includegraphics[width=0.5\textwidth]{img/vote_2.png}\label{f-clas-heart}}
+	\end{center}
+	\caption{Opazovanje podatkov votes.tab, kjer lahko pri nizko postavljeni meji vidimo, da je med demokrai veliko takih, ki glasujejo podobno kot republikanci, pri visoko postavljeni meji, pa vidimo, da so si republikanci veliko bolj enotni kot demokrati.}
+	\label{f-votes}
+	\end{figure}
+
+\section{Povezave}
+	\href{https://github.com/hamaxx/Universe-Classification}{Izvorna koda projekta ter vsi testni primeri.}
+
 \end{document}
