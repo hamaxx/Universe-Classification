@@ -21,7 +21,26 @@
 		Manjkajo"ci podatki so obravnavani kot posebne vrednosti, kar pomeni, da je razdalja med entiteto z vsemi podatki in entiteto brez podatkov najve"cja, razdalja med dvema entitetama brez podatkov pa je najmanj"sa. Razlog za to odlo"citev je zelo enostavna implementacija.
 	
 	\subsection{Ra"cunanje matrike razdalj}
+		Razdaljo med dvema primeroma izra"cunamo kot vsoto vseh razdalj med atributi. V primeru, da je aribut diskreten in neurejena, je razdalja diskretna in sicer 0, 'ce sta vrednosti enaki in 1, "ce sta vrenosti razli"cni. V primeru, da je atribut zvezen, pa se razdalja inra"cuna kot $$ dist = \left|\frac{value_1 - value_{min}}{value_{max} - value_1} - \frac{value_2 - value_{min}}{value_{max} - value_2}\right| $$
+		Kjer je $value_1$ vrednost atributa pri prvem primeru, $value_2$ vrednost atributa pri drugem primeru, $value_{max}$ najve"cja vrednost atributa in $value_{min}$ najmanj"sa vrednost atributa.\\
+		Vse razdalje se pomno"zijo "se s pomembnostjo atributa, ki je izra"cunana z algoritmom information gain in se lahko spreminja v grafi"cnem vmesniku, ter s pomembnostjo vrednosti, ki je definirana kot unikatnost vrednosti. Unikatnost izra"cunamo na diskretiziranih vrednostih in sicer tako, da izra"cunamo povre"cno "stevilo primerov z enako vrednostjo, nato pa to "stevilo delimo s "stevilom primerov, ki imajo enako vrednost kot primer, ki nas zanima. 
+		$$ uni = \frac{\frac{\parallel E \parallel}{\parallel V_u \parallel}}{\parallel E_i=v \parallel} $$
+		Kjer je $E$ mno"zica vseh entitet, $V_u$ mno"zica vseh unikatnih vrednosti za atribut in $v$ vrednost za katero ra"cunamo unikatnost.\\
+		Ko primerjamo dva primera, je unikatnost dolo"cena kot produkt unikatnosti prve in druge vrednosti.
+		
 	\subsection{Simuliranje sil}
+		Algoritem uniclass deluje tako, da primere predstavi kot delce v dvodimenzionalnem prostoru. Vsem delcem dodeli enako maso, nato pa med njimi ra"cuna sile, ki delce premikajo.
+		\subsubsection{Vztrajnost}
+			Za razliko od algoritma MDS, uniclass upo"steva tudi vztrajnost delcev. Vztrajnost ra"cunamo tako, da ima vsak delec poleg atributa pozicija tudi atribut hitrost, ki se spreminja glede na sile, ki nanj delujejo. S spreminjanjem mase delcev lahko uravnavamo kaoti"cnost sistema, saj je vpliv sil na hitrost delca obratno sorazmeren z njegovo maso. Za"cetna masa delcev je sorazmerna z vsoto vseh sil med delci, tako da kaoti"cnost sistema ni odvisna od testnih podatkov.
+		\subsubsection{Izra"cun sile med delcema}
+			Algoritem deli delce na podobne in na ne podobne. Podobni delci so tisti, med katerimi je mo"c povezave manj"sa od dolo"cene meje, ki je na za"cetku definirana kot povpre"cna mo"c povezave med vsemi delci, kasneje pa jo lahko preko uporabni"skega vmesnika tudi spreminjamo. Mo"c povezave je definirana kot $ 1 - razdalja $.\\
+			Podobni delci se privla"cijo s silo, ki je definirana kot $ \frac{(f - k) * d^2}{C} $, kjer je $f$ mo"c povezave, $k$ je prej omenjena meja, $d$ je razdalja med delcema v prostoru, $C$ pa konstanta . \\
+			Delci, ki si niso podobni, se odbijajo po formuli $ \frac{(f - k) * C}{d} $.\\
+			Tako izra"cunana sila se nato "se deli z maso delca. Ker so razdalje lahko zelo majhne, je dolo"cena tudi najve"cja mo"zna sila, kar prepre"ci kaoti"cnost sistema.
+		\subsubsection{Zaletavanje delcev}
+			Ker algoritem predstavi primere kot delce z maso in radijem, ki je ve"cji od 0, se delci med seboj tudi zaletavajo. S tem prepr"cimo to, da bi se ve"c delcev zbralo na isti oziroma zelo podobni poziciji v prostoru, hkrati pa omogo"cimo zdru"zevanje podobnih delcev, kar bi bilo v nasprotnem primeru zaradi vztrajnosti skoraj nemogo"ce.\\
+			Da se delci, ki si niso podobni, nebi zdru"zevali, definiramo togost delcev pri odboju kot obratno verdnost njune podobnosti. Tako dva zelo podobna delca po trku potujeta v skoraj enako smer, dva zelo razli"cna pa vsak v svojo.
+		\subsubsection{Meje polja}
 	
 \section{Vizualizacija podatkov}
 
