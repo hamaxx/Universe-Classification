@@ -1,6 +1,9 @@
-\documentclass[slovene,11pt]{article}
-\usepackage[utf8]{inputenc}
-\usepackage{babel}
+\documentclass[a4paper]{article}
+\usepackage[utf8x]{inputenc}
+\usepackage[slovene]{babel}
+\usepackage{subfigure}
+\usepackage{graphicx}
+\usepackage{float}
 
 \hyphenpenalty=5000
 \tolerance=1000
@@ -41,9 +44,26 @@
 			Ker algoritem predstavi primere kot delce z maso in radijem, ki je ve"cji od 0, se delci med seboj tudi zaletavajo. S tem prepr"cimo to, da bi se ve"c delcev zbralo na isti oziroma zelo podobni poziciji v prostoru, hkrati pa omogo"cimo zdru"zevanje podobnih delcev, kar bi bilo v nasprotnem primeru zaradi vztrajnosti skoraj nemogo"ce.\\
 			Da se delci, ki si niso podobni, nebi zdru"zevali, definiramo togost delcev pri odboju kot obratno verdnost njune podobnosti. Tako dva zelo podobna delca po trku potujeta v skoraj enako smer, dva zelo razli"cna pa vsak v svojo.
 		\subsubsection{Meje polja}
+			Delci, ki z ostalimi primeri nimajo mo"cnih povezav, nam bodo hitro pobegnili izven vidnega polja, saj jih bo ve"cina delcev odbijala. Ta problem vsaj delno re"simo s tem, da okoli polja postavimo mejo, od katere se vsi delci odbijajo. Tako take delce ujamemo na robu polja, kjer se bodo posku"sali "cim bolj pribli"zati delcem, ki so jim podobni in "cim bolj oddaljiti od delcev, ki jih odbijajo. Da delci nebi ostali popolnoma prilepljeni na mejo, v algoritem uvedemo kr"cenje prostora, ki v vsakem ciklu ra"cunanje delce malo pomakne proti sredini. Razdalja za katero se delci premaknejo, je odvisna od oddaljenosti od sredi"s"ca.
 	
-\section{Vizualizacija podatkov}
+	\subsection{Barvanje delcev}
+		Za bolj"so preglednost delovanja delce pobarvamo glede na razred kateremu pripadajo. Razrede pobarvamo tako, da jih "cim bolj enakomirno razporedimo po robu barvnega kroga. \\
+		Poleg barvanja razredov delcem dodelimo "se dve vizualni lastnosti. Prva lastnost je temnost, ki je odvisna od velikosti sile, ki deluje nanj, druga lastnost pa je rde"ca obroba, ki se poka"ze, kadar algoritem kNN iz pozicije delca v prostoru ni pravilno dolo"cil njegovega razreda.
 
+\section{Vizualizacija podatkov}
+	Ker algoritem uniclass obdeluje podatke v dvodimenzionalnem prostoru, je zelo primeren za vizualizacijo podatkov. 
+	\ref{f-derm}	
+	
+	\begin{figure}[H]
+	\begin{center}
+	\subfigure[FreeViz]{\includegraphics[width=0.5\textwidth]{img/der_freeviz.png}}
+	\subfigure[MDS]{\includegraphics[width=0.5\textwidth]{img/der_mds.png}}
+	\subfigure[uniclass]{\includegraphics[width=0.6\textwidth]{img/der_uniclass.png}}
+	\end{center}
+	\caption{To je caption}
+	\label{f-derm}
+	\end{figure}
+	
 \section{Klasifikacija}
 
 \section{Clustering}

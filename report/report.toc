@@ -2,12 +2,13 @@
 \contentsline {section}{\numberline {1}Opis programa}{2}
 \contentsline {subsection}{\numberline {1.1}Branje podatkov}{2}
 \contentsline {subsection}{\numberline {1.2}Ra"cunanje matrike razdalj}{2}
-\contentsline {subsection}{\numberline {1.3}Simuliranje sil}{3}
+\contentsline {subsection}{\numberline {1.3}Simuliranje sil}{2}
 \contentsline {subsubsection}{\numberline {1.3.1}Vztrajnost}{3}
 \contentsline {subsubsection}{\numberline {1.3.2}Izra"cun sile med delcema}{3}
 \contentsline {subsubsection}{\numberline {1.3.3}Zaletavanje delcev}{3}
-\contentsline {subsubsection}{\numberline {1.3.4}Meje polja}{4}
+\contentsline {subsubsection}{\numberline {1.3.4}Meje polja}{3}
+\contentsline {subsection}{\numberline {1.4}Barvanje delcev}{3}
 \contentsline {section}{\numberline {2}Vizualizacija podatkov}{4}
-\contentsline {section}{\numberline {3}Klasifikacija}{4}
-\contentsline {section}{\numberline {4}Clustering}{4}
-\contentsline {section}{\numberline {5}Zaklju"cek}{4}
+\contentsline {section}{\numberline {3}Klasifikacija}{6}
+\contentsline {section}{\numberline {4}Clustering}{6}
+\contentsline {section}{\numberline {5}Zaklju"cek}{6}
