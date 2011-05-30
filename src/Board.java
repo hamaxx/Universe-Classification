@@ -14,6 +14,10 @@ public class Board extends JPanel {
 	long startTime;
 	long fpsTime;
 	
+	int roundCount = 0;
+	int skip = 0;
+	double startAvg;
+	
 	public Board(Menu m) {
 		this.setBackground(Color.white);
 		this.setPreferredSize(new Dimension(800, 800));
@@ -27,11 +31,12 @@ public class Board extends JPanel {
         
 		data = new Data("datasets/" + Main.filename);
 		
-		menu.border = Math.sqrt(data.entity.length) * 60;
+		menu.border = Math.sqrt(data.entity.length) * 20;
 		data.randomPosition(menu.border);
-		menu.mass = startSpeed() / 50;
+		menu.mass = startSpeed() / 60;
 		menu.setMenu(data);
-						
+		
+		startAvg = menu.avgConn;
 		startTime = System.nanoTime() / (int)1E9;		
 		fpsTime = System.nanoTime();
 	}
@@ -44,7 +49,7 @@ public class Board extends JPanel {
 		return str;
 	}
 	
-	private void step() {
+	private void step() {		
 		for (Conn con : data.conn) {
 			double d = con.dist();
 			if (d < 8 && d > 0) {
@@ -143,7 +148,7 @@ public class Board extends JPanel {
 
 		force /= menu.mass;
 
-		if (force > 20) force = 20;
+		if (force > 3) force = 3;
 		if (Double.isNaN(force) || Double.isInfinite(force)) force = 0;
 		
 		con.changeSpeed(force);
@@ -152,54 +157,79 @@ public class Board extends JPanel {
 	private void reMove() {
 		if (!Main.play) return;
 		
-		try {
-			Thread.sleep(5);
-			step();
-			repaint();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		step();
+		repaint();
 
 		if (System.nanoTime() / (int)1E9 - startTime > 5) {
 			menu.newDistPredict();
 			startTime = System.nanoTime() / (int)1E9;
 		}
+		/*
+		roundCount++;
+		if (roundCount > 100) {
+			if (startAvg * 2 > menu.avgConn) {
+				menu.avgConn *= 1.025;
+				menu.tresh.setValue((int)(menu.avgConn * 10));
+			}
+			roundCount = 0;
+		}
+		*/
 	}
 	
 	public void paint(Graphics g) {
-		super.paintComponent(g);
-		paintFps(g);
-		
-		double zoom = ((double)Math.min(getHeight(), getWidth()) / 2) / (menu.border + 50);		
-		g.setColor(new Color(100, 100, 100));
-		double rc = menu.border * zoom * 2;
-		int xc = (int)((double)getWidth() / 2 - rc / 2);
-		int yc = (int)((double)getHeight() / 2 - rc / 2);
-		g.drawOval(xc, yc, (int)rc, (int)rc);
-		
-		int moveX = (int)((menu.border - getWidth() / 2) * zoom);
-		int moveY = (int)((menu.border - getHeight() / 2) * zoom);
-		
-		for (Entity ent : data.entity) {
-			int x = (int)Math.round(ent.x * zoom + ((1 - zoom) * getWidth() / 2));
-			int y = (int)Math.round(ent.y * zoom + ((1 - zoom) * getHeight() / 2));
-							
-			int r = (int)Math.ceil(5 * zoom);
-			g.setColor(ent.color(menu.showPre));
-			g.fillOval(x - r - moveX, y - r - moveY, 2 * r, 2 * r);
+		double fps = 1E6 / ((System.nanoTime() - fpsTime) / 1E3);
+		if (fps < 60 && (fps > 20 || skip > 10)) {
+			skip = 0;
+			super.paintComponent(g);
+			paintFps(g);
+			
+			double zoom = ((double)Math.min(getHeight(), getWidth()) / 2) / (menu.border + 50);		
+			g.setColor(new Color(100, 100, 100));
+			double rc = menu.border * zoom * 2;
+			int xc = (int)((double)getWidth() / 2 - rc / 2);
+			int yc = (int)((double)getHeight() / 2 - rc / 2);
+			g.drawOval(xc, yc, (int)rc, (int)rc);
+			
+			int moveX = (int)((menu.border - getWidth() / 2) * zoom);
+			int moveY = (int)((menu.border - getHeight() / 2) * zoom);
+			
+			for (Entity ent : data.entity) {
+				int x = (int)Math.round(ent.x * zoom + ((1 - zoom) * getWidth() / 2));
+				int y = (int)Math.round(ent.y * zoom + ((1 - zoom) * getHeight() / 2));
+				
+				if (ent.clas != ent.predClas) {
+					int r = (int)Math.ceil(6 * zoom);
+					g.setColor(Color.red.brighter());
+					g.fillOval(x - r - moveX, y - r - moveY, 2 * r, 2 * r);
+				}
+				
+				int r = (int)Math.ceil(5 * zoom);
+				g.setColor(ent.color(menu.showPre));
+				g.fillOval(x - r - moveX, y - r - moveY, 2 * r, 2 * r);
+			}
+		} else if (fps < 20) {
+			fpsTime = System.nanoTime();
+			skip++;
+		} else if (fps > 60) {
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
-
-		//printColors(g);
 		reMove();
 	}
 	
-	private void paintFps(Graphics g) {
+	private boolean paintFps(Graphics g) {
 		long t = (long)((System.nanoTime() - fpsTime) / 1E3);
 		long fps = Math.round(1E6 / t);
+		
+		if (fps > 60) return false;
 		
 		g.drawString("fps: " + fps, 10, 20);
 		
 		fpsTime = System.nanoTime();
+		return true;
 	}
 	
 }

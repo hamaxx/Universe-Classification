@@ -16,6 +16,10 @@ public class Conn {
 	}
 	
 	public void changeSpeed(double force) {
+		if (force > 0) {
+			e1.force += force;
+			e2.force += force;
+		}
 		double dx = ((e2.x - e1.x) / dist() * force);
 		double dy = ((e2.y - e1.y) / dist() * force);
 

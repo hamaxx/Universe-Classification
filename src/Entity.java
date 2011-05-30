@@ -16,6 +16,8 @@ public class Entity {
 	public Clas predClas;
 	public boolean clasHidden;
 	
+	public double force = 0;
+	
 	public Entity(Clas cl, String[] at, String n) {
 		clas = cl;
 		name = n;
@@ -33,11 +35,21 @@ public class Entity {
 				return Color.getHSBColor(0f, 0f, 0f);
 			}
 		} else {
-			return clas.color();
+			Color col = clas.color();
+			
+			for (int i = 0; i < force - 1; i++) 
+				col = col.darker();
+			//System.out.println(force);
+			force = 0;
+			
+			return col;
 		}
 	}
 	
 	public void move() {
+		if (speedX > 10) speedX = 10; else if (speedX < -10) speedX = -10;
+		if (speedY > 10) speedY = 10; else if (speedY < -10) speedY = -10;
+		
 		x += speedX;
 		y += speedY;
 	}

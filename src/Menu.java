@@ -346,7 +346,7 @@ public class Menu extends JPanel {
 		
 		int avg = (int)(avgConn * 10);
 		int min = (int)(avgConn / 4 * 10);
-		int max = (int)(avgConn * 4 * 10);
+		int max = (int)(avgConn * 6 * 10);
 		
 		tresh = new JSlider(JSlider.HORIZONTAL, min, max, avg);
 		int space = (max - min) / 3;
