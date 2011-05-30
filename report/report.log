@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.5.13)  30 MAY 2011 19:40
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.5.13)  30 MAY 2011 22:27
 entering extended mode
  %&-line parsing enabled.
 **\nonstopmode \input{"/home/ham/workspace/uniclass/report/report.tex"}
@@ -181,37 +181,69 @@ File: img/der_mds.png Graphic file (type png)
 File: img/der_uniclass.png Graphic file (type png)
 
 <use img/der_uniclass.png> [4]
-Overfull \vbox (43.935pt too high) has occurred while \output is active []
+Overfull \vbox (56.49055pt too high) has occurred while \output is active []
 
 
 [5 </home/ham/workspace/uniclass/report/img/der_freeviz.png (PNG copy)> </home/
 ham/workspace/uniclass/report/img/der_mds.png (PNG copy)> </home/ham/workspace/
-uniclass/report/img/der_uniclass.png (PNG copy)>] [6]
-(/home/ham/workspace/uniclass/report/report.aux) ) 
+uniclass/report/img/der_uniclass.png (PNG copy)>]
+Overfull \hbox (14.88037pt too wide) in paragraph at lines 71--75
+\OT1/cmr/m/n/10 primernega kan-di-data. Za namene te-sti-ranja upora-bimo prin-
+cip iz-pusti enega(leave-
+ []
+
+<img/zoo_uniclass.png, id=34, 740.7675pt x 731.73375pt>
+File: img/zoo_uniclass.png Graphic file (type png)
+
+<use img/zoo_uniclass.png>
+Underfull \hbox (badness 10000) in paragraph at lines 85--86
+
+ []
+
+[6 </home/ham/workspace/uniclass/report/img/zoo_uniclass.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 87--98
+
+ []
+
+<img/der_uniclass_1.png, id=38, 813.0375pt x 821.0675pt>
+File: img/der_uniclass_1.png Graphic file (type png)
+
+<use img/der_uniclass_1.png>
+<img/heart_uniclass.png, id=39, 800.9925pt x 806.01125pt>
+File: img/heart_uniclass.png Graphic file (type png)
+
+<use img/heart_uniclass.png> [7]
+<img/der_uniclass_2.png, id=44, 803.0pt x 808.01875pt>
+File: img/der_uniclass_2.png Graphic file (type png)
+
+<use img/der_uniclass_2.png> [8 </home/ham/workspace/uniclass/report/img/der_un
+iclass_1.png (PNG copy)> </home/ham/workspace/uniclass/report/img/heart_uniclas
+s.png (PNG copy)>] [9 </home/ham/workspace/uniclass/report/img/der_uniclass_2.p
+ng (PNG copy)>] (/home/ham/workspace/uniclass/report/report.aux) ) 
 Here is how much of TeX's memory you used:
- 1745 strings out of 495061
- 23916 string characters out of 1182621
- 88834 words of memory out of 3000000
- 4925 multiletter control sequences out of 15000+50000
+ 1774 strings out of 495061
+ 24519 string characters out of 1182621
+ 87921 words of memory out of 3000000
+ 4950 multiletter control sequences out of 15000+50000
  7895 words of font info for 28 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 26i,6n,24p,729b,283s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/share/texmf-texlive/fon
-ts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-texlive/fonts/type1/pu
-blic/amsfonts/cm/cmbx12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfon
-ts/cm/cmex10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi1
-0.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/
-share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-
-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/font
-s/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/type1/publ
-ic/amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/
-cm/cmr5.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr7.pfb><
-/usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/te
-xmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive
-/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on report.pdf (6 pages, 216922 bytes).
+ 26i,7n,24p,881b,283s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/t
+exmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-texliv
+e/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-texlive/fonts/typ
+e1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-texlive/fonts/type1/public/a
+msfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/
+cmmi5.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi7.pfb></
+usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/te
+xmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/
+fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/
+public/amsfonts/cm/cmr5.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfon
+ts/cm/cmr7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr8.pf
+b></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/sha
+re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
+Output written on report.pdf (9 pages, 293961 bytes).
 PDF statistics:
- 80 PDF objects out of 1000 (max. 8388607)
+ 95 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 36 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -10,5 +10,7 @@
 \contentsline {subsection}{\numberline {1.4}Barvanje delcev}{3}
 \contentsline {section}{\numberline {2}Vizualizacija podatkov}{4}
 \contentsline {section}{\numberline {3}Klasifikacija}{6}
-\contentsline {section}{\numberline {4}Clustering}{6}
-\contentsline {section}{\numberline {5}Zaklju"cek}{6}
+\contentsline {subsection}{\numberline {3.1}Primerjava klasifikacijske to"cnosti}{7}
+\contentsline {section}{\numberline {4}Clustering}{8}
+\contentsline {subsection}{\numberline {4.1}Clustering s pomo"cjo algoritma k-Means}{9}
+\contentsline {section}{\numberline {5}Zaklju"cek}{9}

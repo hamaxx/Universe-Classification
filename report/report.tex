@@ -51,23 +51,76 @@
 		Poleg barvanja razredov delcem dodelimo "se dve vizualni lastnosti. Prva lastnost je temnost, ki je odvisna od velikosti sile, ki deluje nanj, druga lastnost pa je rde"ca obroba, ki se poka"ze, kadar algoritem kNN iz pozicije delca v prostoru ni pravilno dolo"cil njegovega razreda.
 
 \section{Vizualizacija podatkov}
-	Ker algoritem uniclass obdeluje podatke v dvodimenzionalnem prostoru, je zelo primeren za vizualizacijo podatkov. 
-	\ref{f-derm}	
+	Ker algoritem uniclass obdeluje podatke v dvodimenzionalnem prostoru, je zelo primeren za vizualizacijo podatkov. S spreminjanjem nastavitev algoritma lahko v "zivo spremljamo kaj se s delci dogaja in pri tem izvemo zanimive lastnosti podatkov. Zaradi te lastnosti algoritma slika ne odseva vseh vizualnih lastnosti podatkov, je pa kljub temu informativna. \\
+	Pri sliki \ref{f-derm-uni} lahko vidimo, da sta zelen in rumen razred dominantna, saj imata veliko mo"cno povezanih primerov, moder razred ima ravno tako veliko primerov, vendar le ti niso zelo enotni. To lastnost izvemo iz oblike lika, ki ga delci oblikujejo. Vijoli"cen razred je majhen, vendar relativno dobro povezan. Iz pozicije lahko sklepamo, da je nekoliko podoben rumenemu razredu, hkrati pa ima skupne lastnosti z nekaterimi "clani rde"cega razreda. Moder in rde"c razdred sta o"citno precej druga"cna od ostalih, vendar sta znotraj razreda tako slabo povezana, da se pozamezni primeri me morejo zdru"ziti v skupine. "Ce bi opazovali animacijo in ne le slike, bi lahko opazili "se, da se delci v zelenem razredu najhitreje giblejo, kar pomeni, da so sile med njimi najve"cje.\\
+	Dejstvo, da se moder in rde"c razred ne zdru"zita v skupino je hkrat problem in prednost algoritma uniclass. Ker se nista zdru"zila lahko sklepamo, da so si primeri znotraj razreda precej razli"cni, hkrati pa ne moremo jasno videti v kateri razred spada kateri primer zaradi "cesar bi bila klasifikacija nerazporejenih primerov izredno zahtevna.\\
+	Objektivno bi morda lahko ocenjevali kvaliteto vizualizacije s pono"cjo clusteringa, ki bi ga izvedli s pono"cjo pozicije delcev v prostoru. Ta metoda nam bi verjetno pokazala kako dobro dolo"cen algoritem razdeli podatke po dvodimenzionalnem prostoru, nebi nam pa povedala, kaj vse lahko o podatkih izvemo s pomo"cjo algoritma, kar je glavni cilj vizualizacije.\\
+	Ker ima vsaka metoda svoje prednosti in slabosti, ne bomo ugotavljali kater algoritem je najbol"si, temve"c bomo priporo"cili uniclass kot dodatno orodje za iskanje zakonitosti v podatkih.
 	
 	\begin{figure}[H]
 	\begin{center}
 	\subfigure[FreeViz]{\includegraphics[width=0.5\textwidth]{img/der_freeviz.png}}
 	\subfigure[MDS]{\includegraphics[width=0.5\textwidth]{img/der_mds.png}}
-	\subfigure[uniclass]{\includegraphics[width=0.6\textwidth]{img/der_uniclass.png}}
+	\subfigure[uniclass]{\includegraphics[width=0.6\textwidth]{img/der_uniclass.png}\label{f-derm-uni}}
 	\end{center}
-	\caption{To je caption}
+	\caption{Primerjava algoritmov za vizualizacijo na podatkih dermatology.tab. (Barve pri razli"cnih primerih ne predstavljajo nujno istega razreda.)}
 	\label{f-derm}
 	\end{figure}
 	
 \section{Klasifikacija}
+	Poleg vizualizacije trenutna implementacija algoritma podpira tudi testiranje klasifikacijske to"cnosti algoritma. Razred primera se dolo"ci tako, da s pomo"cjo malo spremenjenega algoritma kNN iz najbli"zjih sosedov izberemo najbolj primernega kandidata. Za namene testiranja uporabimo princip izpusti enega(leave-one-out), kar pomeni, da poznamo razred vseh sosedov. Program pri tem nekoliko goljufa, saj ra"cuna pomembnost atributov tudi na tistem primeru, za katerega kasneje ugotavlja razred. \\
+	Glavna mo"c algoritma uniclass pri klasifikaciji je vizualna komponenta, saj lahko sami vidimo v kak"sni okolici se nahaja dolo"cen primer. "Ce bi se na sliki \ref{f-zoo} naznan primer nahajal v sredini rde"ce skupine bi lahko z zagotovostjo trdili, da tja tudi spada. "Ce bi se nahajal nekje ob robu, pa bi lahko napovedali ve"c razli"cnih potencialnih razredov.\\
+	Razdalja med primeri je dolo"cena kot kvadrat razdlaje med primeroma v prostoru. Poleg razdalje agoritem upo"steva tudi razpr"senost primerov, tako da se iskanje sosedov ustavi takoj, ko je razdalja do naslednjega primera ob"cutno ve"cja od trenutne povpre"cne razdalje. S tem prepre"cimo napa"cno klasifikacijo primerov, ki se nahajajo v zelo majhni skupi v bli"zini velike skupine. \\
+	Na sliki \ref{f-zoo} lahko vidimo katere primere je algoritem pravilno klasificiral in katere napa"cno(rde"ca obroba). Klasifikacijska to"cnost za ta primer je 94\%.
+
+	\begin{figure}[H]
+	\begin{center}
+	\includegraphics[width=0.8\textwidth]{img/zoo_uniclass.png}
+	\end{center}
+	\caption{Predstavitev podatkov zoo.tab z algoritmom uniclass.}
+	\label{f-zoo}
+	\end{figure}
+	
+	\subsection{Primerjava klasifikacijske to"cnosti}
+		Za primerjavo klasifikatorjev sem si izbral "stiri popularne klasifikatorje. Pri interpretiranju rezultatov je potrebno upo"stevati tudi dejstvo, da je uniclass dela"c najpo"casnej"sa in najmanj avtomatska metoda, saj je za zglede klasifikacjske rezultate potrebno ro"cno nastaviti mejo tako, da so skupine primerov "cim bolj lo"cene. To se zdi kot goljufanje vendar ni, saj lahko vizualno lo"cimo skupine tudi, "ce poznamo razrede le majhnega "stevila primerov.\\
+
+		\begin{tabular}{ | l | l | l | l | }
+		\hline
+		 & dermatology.tab & zoo.tab & heart.tab \\ \hline
+		uniclass & 0.91 slika \ref{f-clas-der} & 0.94 slika \ref{f-zoo} & 0.82 slika \ref{f-clas-heart} \\ \hline
+		Ve"cinski & 0.31 & 0.41 & 0.54 \\ \hline
+		SVM & 0.97 & 0.95 & 0.83 \\ \hline
+		Naivni Bayesov & 0.97 & 0.92 & 0.83 \\ \hline
+		kNN & 0.96 & 0.97 & 0.77 \\ \hline
+		\end{tabular}
+		\\\\
+		Iz zbranih podatkov lahko ugotovimo, da algoritem uniclass ni najmo"cnej"sa metoda, "ce "zelimo golo klasifikacijo. Poleg po"casnosti ima algoritem problem tudi s klasifikacijsko to"cnostjo. Zaradi teh ugotovitev priporo"camo funkcijo klasificiranja podatkov le kot pomo"c pri vizualizaciji podakov, kjer nam pri dolo"cenih primerih manjkajo podatki o razredu. 
+		
+	\begin{figure}[H]
+	\begin{center}
+	\subfigure[dermatology.tab]{\includegraphics[width=0.5\textwidth]{img/der_uniclass_1.png}\label{f-clas-der}}
+	\subfigure[heart.tab]{\includegraphics[width=0.5\textwidth]{img/heart_uniclass.png}\label{f-clas-heart}}
+	\end{center}
+	\caption{Klasifikacija podatkov z algoritmom uniclass.}
+	\label{f-der-1}
+	\end{figure}
 
 \section{Clustering}
+	Ker algoritem posamezne primere zdru"zuje v skupine najbolj podobnih, se mo"znost clusteringa zdi o"citna. Trenutna implementacija algoritma za izra"cun sil upo"steva tudi pomembnost atributov, za kar potrebujemo razrede, vendar grafi"cni umesnik podpira ponastavitev vseh atributov in s tem prepre"citev goljufanja. Ko atribute ponastavimo, ugotovimo da se kljub temu primeri skoraj enako dobro razporedijo po skupinah(slika \ref{f-der-2}). Ker program nima implementirane funkcije clusteringa, si bomo pomagali s paktom orange in sicer z vti"cnikom k-Means Clustering.
+	
+	\begin{figure}[H]
+	\begin{center}
+	\includegraphics[width=0.6\textwidth]{img/der_uniclass_2.png}
+	\end{center}
+	\caption{Predstavitev podatkov dermatology.tab brez upo"stevanja pomembnost atributov.}
+	\label{f-der-2}
+	\end{figure}
+
+	\subsection{Clustering s pomo"cjo algoritma k-Means}
+		raise NotImplementedException\\
+		\#zaradi te"zav z izvozom podatkov iz programa uniclass bo to poglavje dodano v rev 1.1
 
 \section{Zaklju"cek}
+	Skozi seminarsko nalogo smo se dotaknili treh potencialnih aplikacij algoritma uniclass. Ugotovili smo, da je najve"cja mo"c algoritma v vizualizaciji podatkov, saj omogo"ca dodatno perspiktivo pri opazovanju podatkov. 
 	
 \end{document}
