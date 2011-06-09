@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
@@ -59,6 +61,25 @@ public class Data {
 		System.out.println("  " + conn.length + " connections");
 		System.out.println("  " + avgConn + " avg strength");
 		System.out.println();
+	}
+	
+	public void export() {
+		String out = "";
+		out += "name	class	x	y\n";
+		out += "string	d	c	c\n";
+		out += "meta	class\n";
+		
+		for (Entity e : entity) {
+			out += e.name + "	" + e.clas.name + "	" + e.x + "	" + e.y + "\n";
+		}
+		try{
+			FileWriter fstream = new FileWriter("out.tab");
+			BufferedWriter outf = new BufferedWriter(fstream);
+			outf.write(out);
+			outf.close();
+		}catch (Exception e){//Catch exception if any
+			System.err.println("Error: " + e.getMessage());
+		}
 	}
 		
 	private void parseFile(String filename) {
@@ -121,7 +142,7 @@ public class Data {
 		ArrayList<Entity> ents = new ArrayList<Entity>();
 		for (String[] sents : file) {
 			ArrayList<String> ats = new ArrayList<String>();
-			String name = "";
+			String name = "x";
 			for (int i = 0; i < sents.length; i++) {
 				if (i != AttrMeta.clasIdx && i != AttrMeta.nameIdx) {
 					ats.add(sents[i]);

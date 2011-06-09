@@ -61,24 +61,25 @@ public class Menu extends JPanel {
 		
 		addPane(play(), 0, c);
 		addPane(reset(), 1, c);
+		addPane(export(), 2, c);
 		
-		addPane(new JPanel(), 2, c);
+		addPane(new JPanel(), 3, c);
 		
-		addPane(colorPanel(), 3, c);
+		addPane(colorPanel(), 4, c);
 		
-		addPane(new JPanel(), 4, c);
+		addPane(new JPanel(), 5, c);
 		
-		addPane(forcePredict(), 5, c);
-		addPane(distPredict(), 6, c);
-		addPane(showPredict(), 7, c);
+		addPane(forcePredict(), 6, c);
+		addPane(distPredict(), 7, c);
+		addPane(showPredict(), 8, c);
 		
-		addPane(new JPanel(), 8, c);
+		addPane(new JPanel(), 9, c);
 		
-		addPane(border(), 9, c);
-		addPane(threshold(), 10, c);
-		addPane(shrink(), 11, c);
-		addPane(mass(), 12, c);
-		addPane(attrScore(), 13, c);
+		addPane(border(), 10, c);
+		addPane(threshold(), 11, c);
+		addPane(shrink(), 12, c);
+		addPane(mass(), 13, c);
+		addPane(attrScore(), 14, c);
 	}
 	
 	private void addPane(JComponent p, int i, GridBagConstraints c) {
@@ -86,10 +87,27 @@ public class Menu extends JPanel {
 		p.setBorder(BorderFactory.createCompoundBorder(in, p.getBorder()));
 		c.gridy = i;
 		
-		if (i == 2 || i == 4 || i == 8) c.weighty = 1;
+		if (i == 3 || i == 5 || i == 9) c.weighty = 1;
 		else  c.weighty = 0;
 			
 		this.add(p, c);
+	}
+	
+	private JComponent export() {
+		JButton export = new JButton("Export");
+
+		export.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent arg0) {}
+			public void mouseEntered(MouseEvent arg0) {}
+			public void mouseExited(MouseEvent arg0) {}
+			public void mousePressed(MouseEvent arg0) {}
+			public void mouseReleased(MouseEvent arg0) {
+				data.export();
+			}
+
+		});
+		
+		return export;
 	}
 	
 	private JComponent play() {
