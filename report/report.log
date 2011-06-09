@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.5.13)  9 JUN 2011 21:38
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.5.13)  9 JUN 2011 22:12
 entering extended mode
  %&-line parsing enabled.
 **\nonstopmode \input{"/home/ham/workspace/uniclass/report/report.tex"}
@@ -363,25 +363,20 @@ File: img/der_uniclass_2.png Graphic file (type png)
 
 <use img/der_uniclass_2.png> [8 </home/ham/workspace/uniclass/report/img/der_un
 iclass_1.png (PNG copy)> </home/ham/workspace/uniclass/report/img/heart_uniclas
-s.png (PNG copy)>]
-Underfull \hbox (badness 10000) in paragraph at lines 121--123
-
- []
-
-<img/clus_uni_pic.png, id=143, 774.895pt x 782.925pt>
+s.png (PNG copy)>] <img/clus_uni_pic.png, id=144, 774.895pt x 782.925pt>
 File: img/clus_uni_pic.png Graphic file (type png)
 
 <use img/clus_uni_pic.png> [9 </home/ham/workspace/uniclass/report/img/der_unic
 lass_2.png (PNG copy)>]
-<img/clus_uni_kmeans.png, id=153, 451.6875pt x 451.6875pt>
+<img/clus_uni_kmeans.png, id=155, 451.6875pt x 451.6875pt>
 File: img/clus_uni_kmeans.png Graphic file (type png)
 
 <use img/clus_uni_kmeans.png>
-<img/clus_kmeans.png, id=154, 451.6875pt x 451.6875pt>
+<img/clus_kmeans.png, id=156, 451.6875pt x 451.6875pt>
 File: img/clus_kmeans.png Graphic file (type png)
 
 <use img/clus_kmeans.png>
-Underfull \hbox (badness 1168) in paragraph at lines 137--137
+Underfull \hbox (badness 1168) in paragraph at lines 139--139
 []\OT1/cmr/m/n/10 Slika 6: []Primerjava clus-teringa po-datkov z uporabo al-go-
 ritma k-Means
  []
@@ -392,14 +387,14 @@ Overfull \vbox (5.42322pt too high) has occurred while \output is active []
 
 [11 </home/ham/workspace/uniclass/report/img/clus_uni_kmeans.png (PNG copy)> </
 home/ham/workspace/uniclass/report/img/clus_kmeans.png (PNG copy)>]
-<img/clus_uni_hier.png, id=164, 451.6875pt x 451.6875pt>
+<img/clus_uni_hier.png, id=166, 451.6875pt x 451.6875pt>
 File: img/clus_uni_hier.png Graphic file (type png)
 
 <use img/clus_uni_hier.png>
-<img/clus_hier.png, id=165, 451.6875pt x 451.6875pt>
+<img/clus_hier.png, id=167, 451.6875pt x 451.6875pt>
 File: img/clus_hier.png Graphic file (type png)
  <use img/clus_hier.png>
-Underfull \hbox (badness 1521) in paragraph at lines 146--146
+Underfull \hbox (badness 1521) in paragraph at lines 148--148
 []\OT1/cmr/m/n/10 Slika 7: []Primerjava clus-teringa po-datkov z in brez uporab
 e al-go-ritma
  []
@@ -410,25 +405,38 @@ Overfull \vbox (5.42322pt too high) has occurred while \output is active []
 
 [12 </home/ham/workspace/uniclass/report/img/clus_uni_hier.png (PNG copy)> </ho
 me/ham/workspace/uniclass/report/img/clus_hier.png (PNG copy)>]
+<img/clus_uni_kmeans_der.png, id=173, 451.6875pt x 451.6875pt>
+File: img/clus_uni_kmeans_der.png Graphic file (type png)
+
+<use img/clus_uni_kmeans_der.png>
+<img/clus_kmeans_der.png, id=174, 451.6875pt x 451.6875pt>
+File: img/clus_kmeans_der.png Graphic file (type png)
+
+<use img/clus_kmeans_der.png>
+Overfull \vbox (5.42322pt too high) has occurred while \output is active []
+
+
+[13 </home/ham/workspace/uniclass/report/img/clus_uni_kmeans_der.png (PNG copy)
+> </home/ham/workspace/uniclass/report/img/clus_kmeans_der.png (PNG copy)>]
 
 Package hyperref Warning: Composite letter `\textasciicaron+c'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 150.
+(hyperref)                removing `\textasciicaron' on input line 161.
 
-<img/vote_1.png, id=172, 746.79pt x 749.80125pt>
+<img/vote_1.png, id=183, 746.79pt x 749.80125pt>
 File: img/vote_1.png Graphic file (type png)
  <use img/vote_1.png>
-<img/vote_2.png, id=173, 760.8425pt x 773.89125pt>
+<img/vote_2.png, id=184, 760.8425pt x 773.89125pt>
 File: img/vote_2.png Graphic file (type png)
  <use img/vote_2.png>
-[13] [14 </home/ham/workspace/uniclass/report/img/vote_1.png (PNG copy)> </home
+[14] [15 </home/ham/workspace/uniclass/report/img/vote_1.png (PNG copy)> </home
 /ham/workspace/uniclass/report/img/vote_2.png (PNG copy)>]
 (/home/ham/workspace/uniclass/report/report.aux) ) 
 Here is how much of TeX's memory you used:
- 5061 strings out of 495061
- 74675 string characters out of 1182621
- 157191 words of memory out of 3000000
- 8107 multiletter control sequences out of 15000+50000
+ 5080 strings out of 495061
+ 75062 string characters out of 1182621
+ 157495 words of memory out of 3000000
+ 8120 multiletter control sequences out of 15000+50000
  7895 words of font info for 28 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  39i,7n,39p,881b,308s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -445,9 +453,9 @@ cm/cmr5.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr7.pfb><
 /usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/te
 xmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive
 /fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on report.pdf (14 pages, 421495 bytes).
+Output written on report.pdf (15 pages, 456477 bytes).
 PDF statistics:
- 245 PDF objects out of 1000 (max. 8388607)
- 50 named destinations out of 1000 (max. 500000)
- 199 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 255 PDF objects out of 1000 (max. 8388607)
+ 54 named destinations out of 1000 (max. 500000)
+ 209 words of extra memory for PDF output out of 10000 (max. 10000000)
 
