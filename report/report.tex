@@ -107,7 +107,7 @@
 	\end{figure}
 
 \section{Clustering}
-	Ker algoritem posamezne primere zdru"zuje v skupine najbolj podobnih, se mo"znost clusteringa zdi o"citna. Trenutna implementacija algoritma za izra"cun sil upo"steva tudi pomembnost atributov, za kar potrebujemo razrede, vendar grafi"cni umesnik podpira ponastavitev vseh atributov in s tem prepre"citev goljufanja. Ko atribute ponastavimo, ugotovimo da se kljub temu primeri skoraj enako dobro razporedijo po skupinah(slika \ref{f-der-2}). Ker program nima implementirane funkcije clusteringa, si bomo pomagali s paktom orange in sicer z vti"cnikom k-Means Clustering.
+	Ker algoritem posamezne primere zdru"zuje v skupine najbolj podobnih, se mo"znost clusteringa zdi o"citna. Trenutna implementacija algoritma za izra"cun sil upo"steva tudi pomembnost atributov, za kar potrebujemo razrede, vendar grafi"cni umesnik podpira ponastavitev vseh atributov in s tem prepre"citev goljufanja. Ko atribute ponastavimo, ugotovimo da se kljub temu primeri skoraj enako dobro razporedijo po skupinah(slika \ref{f-der-2}). Ker program nima implementirane funkcije clusteringa, si bomo pomagali s paktom orange in sicer z vti"cnikoma k-Means Clustering ter Hierarchical clustering. 
 	
 	\begin{figure}[H]
 	\begin{center}
@@ -117,12 +117,38 @@
 	\label{f-der-2}
 	\end{figure}
 
-	\subsection{Clustering s pomo"cjo algoritma k-Means}
-		raise NotImplementedException\\
-		\#zaradi te"zav z izvozom podatkov iz programa uniclass bo to poglavje dodano v rev 1.1
+	\subsection{Primerjava algoritmov}
+		Za primerjavo algoritmov smo si izbrali podatke zoo.tab. V programi uniclass smo ponastavili pomomebnost atributov ter dobili sliko \ref{clus-uni-img}. Podatke smo izvozili tako, da smo imeli poleg podatka o razredu le podatek o poziciji, ter jih uvozili v paket orange. Nato smo uvozili "se originalne podatke, ter jih za prvo primerjavo poslali v widget k-Means Clustering, ki smo ga nastavili tako, da si je sam izbral optimalno "stevilo clusterjev. Na sliki \ref{clus-uni-kmeans} si lahko ogledate rezultate clusteringa z uporabo algoritma uniclass, na sliki \ref{clus-kmeans-solo} pa rezultate pridobljene le z uporabo algoritma k-Means. Opazimo lahko, da je algoritem uniclass bolje razporedil sesalce, ostali razredi pa so razporejeni podobno dobro.\\
+		Za drugo primerjavo smo podatke obdelali z algoritmom hierarchical clustering, pri ra"cunanju povezav pa smo uporabili wardovo povezavo. Ker algoritem od nas zahteva, da sami nastavimo mejo za lo"citev razredov, rezultati niso odvisni le od algoritmov, vendar tudi od raziskovalca. Na sliki \ref{clus-uni-hier} si lahko ogledate rezultate pridobljene s pomo"cjo algoritma uniclass, na sliki \ref{clus-hier-solo} pa rezultate brez uniclassa. Rezultati so si zopet zelo podobni. Pri uporabi uniclass smo napa"cno zdru"zili insekte in nevreten"carje, brez uniclassa pa dvo"zivke in nevreten"carje. \\
+
+	\begin{figure}[H]
+	\begin{center}
+	\includegraphics[width=0.6\textwidth]{img/clus_uni_pic.png}
+	\end{center}
+	\caption{Podatki zoo.tab v programu uniclass brez ocene atributov.}
+	\label{clus-uni-img}
+	\end{figure}
+
+	\begin{figure}[H]
+	\begin{center}
+	\subfigure[Z uniclass]{\includegraphics[width=0.75\textwidth]{img/clus_uni_kmeans.png}\label{clus-uni-kmeans}}
+	\subfigure[Brez uniclass]{\includegraphics[width=0.75\textwidth]{img/clus_kmeans.png}\label{clus-kmeans-solo}}
+	\end{center}
+	\caption{Primerjava clusteringa podatkov z uporabo algoritma k-Means Clustering}
+	\label{clus-kmeans}
+	\end{figure}
+	
+	\begin{figure}[H]
+	\begin{center}
+	\subfigure[Z uniclass]{\includegraphics[width=0.75\textwidth]{img/clus_uni_hier.png}\label{clus-uni-hier}}
+	\subfigure[Brez uniclass]{\includegraphics[width=0.75\textwidth]{img/clus_hier.png}\label{clus-hier-solo}}
+	\end{center}
+	\caption{Primerjava clusteringa podatkov z in brez uporabe algoritma Hierarchical clustering.}
+	\label{clus-hier}
+	\end{figure}
 
 \section{Zaklju"cek}
-	Skozi seminarsko nalogo smo se dotaknili treh potencialnih aplikacij algoritma uniclass. Ugotovili smo, da je najve"cja mo"c algoritma v vizualizaciji podatkov, saj omogo"ca dodatno perspiktivo pri opazovanju podatkov. Poleg opazovanja razpr"senosti podatkov lahko s pomo"cjo opazovanja premikanja lo"cimo mo"cno in "sibko povezane primere. S spreminjanjem nastavitev v grafi"cnem umesniku pa lahko v "zivo opazujemo spremembe, kar nam omogo"ca odkrivanje bolj skritih zakonitosti in vzorcev(slika \ref{f-votes}). 
+	Skozi seminarsko nalogo smo se dotaknili treh potencialnih aplikacij algoritma uniclass. Ugotovili smo, da je najve"cja mo"c algoritma v vizualizaciji podatkov, saj omogo"ca dodatno perspiktivo pri opazovanju podatkov. Poleg opazovanja razpr"senosti podatkov lahko s pomo"cjo opazovanja premikanja lo"cimo mo"cno in "sibko povezane primere. S spreminjanjem nastavitev v grafi"cnem umesniku pa lahko v "zivo opazujemo spremembe, kar nam omogo"ca odkrivanje bolj skritih zakonitosti in vzorcev(slika \ref{f-votes}). Tudi pri clusteringu podatkov se algoritem dobro odre"ze, saj zelo u"cinkovito zmanj"sa "stevilo atributov protrebnih za clustering. 
 
 	\begin{figure}[H]
 	\begin{center}
